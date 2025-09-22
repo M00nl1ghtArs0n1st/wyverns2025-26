@@ -26,7 +26,7 @@ public class SixWheelDrive extends LinearOpMode{
         while (!isStopRequested()) { //program wouldnt start without this
             //gamepad1: driver gamepad
             //gamepad2: tools gamepad
-            double tankLeft = -gamepad1.left_stick_y; // will also be used for arcade controls (would be called arcadeForward)
+            double tankLeft = gamepad1.left_stick_y; // will also be used for arcade controls (would be called arcadeForward)
             double tankRight = gamepad1.right_stick_y;
             double arcadeTurn = gamepad1.right_stick_x;
             //this seems useless, but if you need to reverse a control, you can just add "-" before the reference
