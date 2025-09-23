@@ -11,11 +11,11 @@ public class shapes extends LinearOpMode {
     public void runOpMode() {
         robot = new RobotClass(hardwareMap);
         waitForStart();
-        driveBasic(.5, -.5, 1000);
+        driveBasic(.25, -.25, 1000);
         sleep(500);
-        driveBasic(.75, .75, 4000);
+        driveBasic(.5, .5, 4000);
         sleep(500);
-        driveBasic(.5, -.5, 1000);
+        driveBasic(.25, -.25, 1000);
         sleep(500);
         driveBasic(.75, .75, 4000);
         sleep(500);
