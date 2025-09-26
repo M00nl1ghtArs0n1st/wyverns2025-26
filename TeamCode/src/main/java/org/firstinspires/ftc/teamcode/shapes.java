@@ -11,21 +11,21 @@ public class shapes extends LinearOpMode {
     public void runOpMode() {
         robot = new RobotClass(hardwareMap);
         waitForStart();
-        driveBasic(.25, -.25, 1000);
+        driveBasic(.25, -.25,2000);
         sleep(500);
-        driveBasic(.5, .5, 4000);
+        driveBasic(.35, .35, 2500);
         sleep(500);
-        driveBasic(.25, -.25, 1000);
+        driveBasic(.25, -.25, 2000);
         sleep(500);
-        driveBasic(.75, .75, 4000);
+        driveBasic(.35, .35, 2500);
         sleep(500);
-        driveBasic(.5, -.5, 1000);
+        driveBasic(.25, -.25, 2000);
         sleep(500);
-        driveBasic(.75, .75, 4000);
+        driveBasic(.35, .35, 2500);
         sleep(500);
-        driveBasic(.5, -.5, 1000);
+        driveBasic(.25, -.25, 2000);
         sleep(500);
-        driveBasic(.75, .75, 4000);
+        driveBasic(.35, .35, 2500);
         sleep(500);
     }
     public void driveBasic(double left,double right,long time /* long variable type is really big so its for time-based purposes */) { //left: left side power, right: right side power, time: for how long
