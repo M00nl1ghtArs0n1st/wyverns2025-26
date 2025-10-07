@@ -20,7 +20,7 @@ public class IMUTest extends LinearOpMode{
         robot.imu.resetYaw();
         waitForStart();
         telemetry.addData("heading/angle", robot.getHeading());
-        turnUntilAngle(90);
+        turnByAngle(90);
     }
     public void driveAuto(double left,double right) {
         robot.frontLeft.setPower(left);
@@ -34,7 +34,7 @@ public class IMUTest extends LinearOpMode{
         robot.frontRight.setPower(0);
         robot.backRight.setPower(0);
     }
-    public void turnUntilAngle (double angle){
+    public void turnByAngle (double angle){
         robot.imu.resetYaw();
         double angleDistance;
         angleDistance = Math.abs(angle);
