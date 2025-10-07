@@ -6,27 +6,19 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 import java.lang.Math;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 @Autonomous
-public class IMUTest extends LinearOpMode{
+public class auto extends LinearOpMode{
     RobotClass robot;
     @Override
     public void runOpMode(){
         robot = new RobotClass(hardwareMap);
-        ElapsedTime runTime = new ElapsedTime();
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
         robot.imu.initialize(parameters);
         robot.imu.resetYaw();
         waitForStart();
-        runTime.reset();
-        telemetry.addData("heading/angle", robot.getHeading());
-        driveStraight(3,1000);
-        sleep(500);
-        turnByAngle(90);
-        sleep(5000);
-        turnByAngle(-90);
     }
     public void driveStraight(double power, long time /* long variable type is really big so its for time-based purposes */) {
         robot.imu.resetYaw();
