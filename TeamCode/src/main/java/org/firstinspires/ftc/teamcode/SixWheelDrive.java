@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
@@ -19,6 +20,10 @@ public class SixWheelDrive extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         //hardware mapping from driver hub
         robot = new RobotClass(hardwareMap);
+        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         // Put stuff here you want to do after "init", before "play"
 
