@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -11,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @Autonomous
-public class Autofrfr extends LinearOpMode{
+public class autored extends LinearOpMode{
     RobotClass robot;
     @Override
     public void runOpMode(){
@@ -21,9 +20,34 @@ public class Autofrfr extends LinearOpMode{
                 RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
         robot.imu.initialize(parameters);
         robot.imu.resetYaw();
-        waitForStart();
-        moveWithEncoders(100,100);
 
+        waitForStart();
+        moveWithEncoders(100,100);//go to apriltag
+        turnByAngle(-45);
+        //scan april tag
+        turnByAngle(45);
+        if(/* gpp */){
+            moveWithEncoders(-100,-25);
+            turnByAngle(90);
+            //activate intake
+            moveWithEncoders(50, 25);
+            //deactivate intake
+            moveWithEncoders(-50, -25);
+        }if(/* pgp */){
+            moveWithEncoders(-100, -50);
+            turnByAngle(90);
+            //activate intake
+            moveWithEncoders(50, 25);
+            //deactivate intake
+            moveWithEncoders(-50, -25);
+        } else /*ppg*/{
+            moveWithEncoders(-100,-75);
+            turnByAngle(90);
+            //activate intake
+            moveWithEncoders(50, 25);
+            //deactivate intake
+            moveWithEncoders(-50, -25);
+        }
     }
     public void driveStraight(double power, long time /* long variable type is really big so its for time-based purposes */) {
         robot.imu.resetYaw();

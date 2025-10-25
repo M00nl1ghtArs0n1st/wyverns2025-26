@@ -8,7 +8,7 @@ import java.lang.Math;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class auto extends LinearOpMode{
+public class autoblue extends LinearOpMode{
     RobotClass robot;
     @Override
     public void runOpMode(){
