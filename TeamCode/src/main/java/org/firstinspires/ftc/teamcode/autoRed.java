@@ -21,12 +21,17 @@ public class autoRed extends LinearOpMode {
         robot.imu.initialize(parameters);
         robot.imu.resetYaw();
         waitForStart();
-        moveWithEncoders(100,100);
-        turnByAngle(-45);
-        //scan april tag
-        turnByAngle(45);
+        moveWithEncoders(50,50);
+//        turnByAngle(-45);
+//        //scan april tag
+//        turnByAngle(45);
 //        if(/* gpp */){
-
+//        moveWithEncoders(-100, -25);
+//        turnByAngle(90);
+//        //activate intake
+//        moveWithEncoders(50, 25);
+//        //deactivate intake
+//        moveWithEncoders(-50, -25);
 
 //        }if(/* pgp */){
 //            moveWithEncoders(-100, -50);
@@ -111,6 +116,18 @@ public class autoRed extends LinearOpMode {
     }
 
     public void moveWithEncoders(double velocity, int targetPosition) {
+        double CPR = 28;
+//        double frontLeftRevs = robot.frontLeft.getCurrentPosition()/CPR;
+//        double frontRightRevs = robot.frontRight.getCurrentPosition()/CPR;
+//        double backLeftRevs = robot.backLeft.getCurrentPosition()/CPR;
+//        double backRightRevs = robot.backRight.getCurrentPosition()/CPR;
+//        DIAMETERRRRRRRR GET FROM CAD
+//        double circumference = Math.PI * diameter;
+//        double distance = circumference * revolutions;
+        robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setTargetPosition(targetPosition);
         robot.frontRight.setTargetPosition(targetPosition);
         robot.backLeft.setTargetPosition(targetPosition);
