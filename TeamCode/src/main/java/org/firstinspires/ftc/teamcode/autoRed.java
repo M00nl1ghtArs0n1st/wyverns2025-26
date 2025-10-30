@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.content.ContentProviderResult;
+
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -115,19 +117,30 @@ public class autoRed extends LinearOpMode {
         driveStop(); //stops robot after it has turned
     }
 
-    public void moveWithEncoders(double velocity, int targetPosition) {
-        double CPR = 28;
-//        double frontLeftRevs = robot.frontLeft.getCurrentPosition()/CPR;
-//        double frontRightRevs = robot.frontRight.getCurrentPosition()/CPR;
-//        double backLeftRevs = robot.backLeft.getCurrentPosition()/CPR;
-//        double backRightRevs = robot.backRight.getCurrentPosition()/CPR;
-//        DIAMETERRRRRRRR GET FROM CAD
-//        double circumference = Math.PI * diameter;
-//        double distance = circumference * revolutions;
+    public void moveWithEncoders(double velocity, int targetDistance) { //velocity is in ticks per second not percentages
+
         robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        double frontLeftRevs = robot.frontLeft.getCurrentPosition()/CPR;
+//        double frontRightRevs = robot.frontRight.getCurrentPosition()/CPR;
+//        double backLeftRevs = robot.backLeft.getCurrentPosition()/CPR;
+//        double backRightRevs = robot.backRight.getCurrentPosition()/CPR;
+
+//        double frontLeftDist = circumference * frontLeftRevs;
+//        double frontRightDist = circumference * frontRightRevs;
+//        double backLeftDist = circumference * backLeftRevs;
+//        double backRightDist = circumference * backRightRevs;
+        double CPR = 28; //counts per revolution CALCULATE IN GEAR REDUCTION OR DIE LOSER
+        double circumference = Math.PI * 4.778;
+        double circumferencesInTargetDist= targetDistance/circumference;
+        int A = (int) Math.round(circumferencesInTargetDist);
+        int B = (int) Math.round(CPR);
+        int targetPosition = A * B;
+
+
+
         robot.frontLeft.setTargetPosition(targetPosition);
         robot.frontRight.setTargetPosition(targetPosition);
         robot.backLeft.setTargetPosition(targetPosition);
@@ -136,10 +149,17 @@ public class autoRed extends LinearOpMode {
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        driveFunction(.5, .5);
-        robot.frontLeft.setVelocity(velocity);
-        robot.frontRight.setVelocity(velocity);
-        robot.backLeft.setVelocity(velocity);
-        robot.backRight.setVelocity(velocity);
+        robot.frontLeft.setVelocity(Math.abs(velocity));
+        robot.frontRight.setVelocity(Math.abs(velocity));
+        robot.backRight.setVelocity(Math.abs(velocity));
+        robot.backLeft.setVelocity(Math.abs(velocity));
+
+        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        while (robot.frontLeft.getCurrentPosition() < targetPosition && robot.frontRight.getCurrentPosition() < targetPosition && robot.backLeft.getCurrentPosition() < targetPosition && robot.backRight< targetPosition) {
+
+        }
     }
 }
