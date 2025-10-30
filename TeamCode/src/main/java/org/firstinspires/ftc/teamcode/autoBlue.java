@@ -65,7 +65,7 @@ public class autoBlue extends LinearOpMode {
             }
         }
         driveStop(); //stops after the specified amount of time has passed
-    } //STILL NEED TO TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    }
 
     public void driveBasic(double left, double right, long time) {
         driveFunction(left, right);
@@ -113,7 +113,18 @@ public class autoBlue extends LinearOpMode {
         driveStop(); //stops robot after it has turned
     }
 
-    public void moveWithEncoders(double velocity, int targetPosition) {
+    public void moveWithEncoders(double velocity, int targetDistance) { //velocity is in ticks per second not percentages distance in inches
+
+        robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        double CPR = 28; //counts per revolution CALCULATE IN GEAR REDUCTION OR DIE LOSER
+        double circumference = Math.PI * 4.778;
+        double circumferencesInTargetDist = targetDistance / circumference;
+        int A = (int) Math.round(circumferencesInTargetDist);
+        int B = (int) Math.round(CPR);
+        int targetPosition = A * B;
         robot.frontLeft.setTargetPosition(targetPosition);
         robot.frontRight.setTargetPosition(targetPosition);
         robot.backLeft.setTargetPosition(targetPosition);
@@ -122,10 +133,17 @@ public class autoBlue extends LinearOpMode {
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        driveFunction(.5, .5);
-        robot.frontLeft.setVelocity(velocity);
-        robot.frontRight.setVelocity(velocity);
-        robot.backLeft.setVelocity(velocity);
-        robot.backRight.setVelocity(velocity);
+        robot.frontLeft.setVelocity(Math.abs(velocity));
+        robot.frontRight.setVelocity(Math.abs(velocity));
+        robot.backRight.setVelocity(Math.abs(velocity));
+        robot.backLeft.setVelocity(Math.abs(velocity));
+        while (robot.frontLeft.getCurrentPosition() < targetPosition && robot.frontRight.getCurrentPosition() < targetPosition && robot.backLeft.getCurrentPosition() < targetPosition && robot.backRight.getCurrentPosition() < targetPosition) {
+            //EMPTY. FOR. A. REASON.
+        }
+        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
     }
 }
+
