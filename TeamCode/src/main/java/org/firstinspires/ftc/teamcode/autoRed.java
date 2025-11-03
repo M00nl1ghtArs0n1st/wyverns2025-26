@@ -24,7 +24,7 @@ public class autoRed extends LinearOpMode {
         robot.imu.initialize(parameters);
         robot.imu.resetYaw();
         waitForStart();
-        moveWithEncoders(50,50);
+        moveWithEncoders(.5,12);
 //        turnByAngle(-45);
 //        //scan april tag
 //        turnByAngle(45);
@@ -52,25 +52,6 @@ public class autoRed extends LinearOpMode {
 //            moveWithEncoders(-50, -25);
     }
 
-    public void driveStraight(double power, long time /* long variable type is really big so its for time-based purposes */) {
-        robot.imu.resetYaw();
-        ElapsedTime Runtime = new ElapsedTime(); //makes a new timer
-        Runtime.reset(); //resets this timer (if this is the second time the command has been used
-        long endtime = (time * 1000000) + Runtime.nanoseconds(); //calculates what time the robot needs to start at and converts it to nanoseconds so the variable remains a long
-        //set all motor powers
-        while (endtime >= Runtime.nanoseconds()) { // does things during the specified time
-            while (robot.getHeading() > 0) {
-                driveFunction(power - .1, power + .1); //veers left
-            }
-            while (robot.getHeading() < 0) {
-                driveFunction(power + .1, power - .1);//veers right
-            }
-            while (robot.getHeading() == 0) {
-                driveFunction(power, power); // just goes straight
-            }
-        }
-        driveStop(); //stops after the specified amount of time has passed
-    } //STILL NEED TO TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     public void driveBasic(double left, double right, long time) {
         driveFunction(left, right);
@@ -118,18 +99,19 @@ public class autoRed extends LinearOpMode {
         driveStop(); //stops robot after it has turned
     }
 
-    public void moveWithEncoders(double velocity, int targetDistance) { //velocity is in ticks per second not percentages
+    public void moveWithEncoders(double power, int targetDistance) { //velocity is in ticks per second not percentages
 
         robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        double CPR = 28; //counts per revolution CALCULATE IN GEAR REDUCTION OR DIE LOSER
+        double CPR = 28 * 20; //counts per revolution 28 times gear ratio 20:1
         double circumference = Math.PI * 4.778;
         double circumferencesInTargetDist= targetDistance/circumference;
         int A = (int) Math.round(circumferencesInTargetDist);
         int B = (int) Math.round(CPR);
         int targetPosition = A * B;
+
         robot.frontLeft.setTargetPosition(targetPosition);
         robot.frontRight.setTargetPosition(targetPosition);
         robot.backLeft.setTargetPosition(targetPosition);
@@ -138,11 +120,15 @@ public class autoRed extends LinearOpMode {
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.frontLeft.setVelocity(Math.abs(velocity));
-        robot.frontRight.setVelocity(Math.abs(velocity));
-        robot.backRight.setVelocity(Math.abs(velocity));
-        robot.backLeft.setVelocity(Math.abs(velocity));
-        while (robot.frontLeft.getCurrentPosition() < targetPosition && robot.frontRight.getCurrentPosition() < targetPosition && robot.backLeft.getCurrentPosition() < targetPosition && robot.backRight.getCurrentPosition() < targetPosition) {
+//        robot.frontLeft.setVelocity(Math.abs(power));
+//        robot.frontRight.setVelocity(Math.abs(power));
+//        robot.backRight.setVelocity(Math.abs(power));
+//        robot.backLeft.setVelocity(Math.abs(power)); //FIGURE OUT VELOCITY OR IM MURDERING YOU
+        robot.frontLeft.setPower(Math.abs(power));
+        robot.frontRight.setPower(Math.abs(power));
+        robot.backRight.setPower(Math.abs(power));
+        robot.backLeft.setPower(Math.abs(power));
+        while (robot.frontLeft.getCurrentPosition() < Math.abs(targetPosition) && robot.frontRight.getCurrentPosition() < Math.abs(targetPosition) && robot.backLeft.getCurrentPosition() < Math.abs(targetPosition) && robot.backRight.getCurrentPosition() < Math.abs(targetPosition)) {
             //EMPTY. FOR. A. REASON.
         }
         robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);

@@ -32,19 +32,19 @@ public class autoBlue extends LinearOpMode {
         //deactivate intake
         moveWithEncoders(-50, -25);
 //        }if(/* pgp */){
-//            moveWithEncoders(-100, -50);
+//            moveWithEncoders(-1, -50);
 //            turnByAngle(90);
 //            //activate intake
-//            moveWithEncoders(50, 25);
+//            moveWithEncoders(.50, 25);
 //            //deactivate intake
-//            moveWithEncoders(-50, -25);
+//            moveWithEncoders(-.50, -25);
 //        } else /*ppg*/{
-//            moveWithEncoders(-100,-75);
+//            moveWithEncoders(-1.00,-75);
 //            turnByAngle(90);
 //            //activate intake
-//            moveWithEncoders(50, 25);
+//            moveWithEncoders(.50, 25);
 //            //deactivate intake
-//            moveWithEncoders(-50, -25);
+//            moveWithEncoders(-.50, -25);
     }
 
     public void driveStraight(double power, long time /* long variable type is really big so its for time-based purposes */) {
