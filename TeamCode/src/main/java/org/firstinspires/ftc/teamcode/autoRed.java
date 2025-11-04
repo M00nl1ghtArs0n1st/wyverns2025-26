@@ -24,7 +24,7 @@ public class autoRed extends LinearOpMode {
         robot.imu.initialize(parameters);
         robot.imu.resetYaw();
         waitForStart();
-        moveWithEncoders(.5,12);
+        moveWithEncoders(.5,14);
 //        turnByAngle(-45);
 //        //scan april tag
 //        turnByAngle(45);
@@ -111,6 +111,7 @@ public class autoRed extends LinearOpMode {
         int A = (int) Math.round(circumferencesInTargetDist);
         int B = (int) Math.round(CPR);
         int targetPosition = A * B;
+        double TPS = 5 * CPR;//ticks per second
 
         robot.frontLeft.setTargetPosition(targetPosition);
         robot.frontRight.setTargetPosition(targetPosition);
@@ -120,15 +121,16 @@ public class autoRed extends LinearOpMode {
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-//        robot.frontLeft.setVelocity(Math.abs(power));
-//        robot.frontRight.setVelocity(Math.abs(power));
-//        robot.backRight.setVelocity(Math.abs(power));
-//        robot.backLeft.setVelocity(Math.abs(power)); //FIGURE OUT VELOCITY OR IM MURDERING YOU
-        robot.frontLeft.setPower(Math.abs(power));
-        robot.frontRight.setPower(Math.abs(power));
-        robot.backRight.setPower(Math.abs(power));
-        robot.backLeft.setPower(Math.abs(power));
-        while (robot.frontLeft.getCurrentPosition() < Math.abs(targetPosition) && robot.frontRight.getCurrentPosition() < Math.abs(targetPosition) && robot.backLeft.getCurrentPosition() < Math.abs(targetPosition) && robot.backRight.getCurrentPosition() < Math.abs(targetPosition)) {
+        robot.frontLeft.setVelocity(TPS * Math.abs(power));
+        robot.frontRight.setVelocity(TPS * Math.abs(power));
+        robot.backRight.setVelocity(TPS * Math.abs(power));
+        robot.backLeft.setVelocity(TPS * Math.abs(power));
+//        robot.frontLeft.setPower(Math.abs(power));
+//        robot.frontRight.setPower(Math.abs(power));
+//        robot.backRight.setPower(Math.abs(power));
+//        robot.backLeft.setPower(Math.abs(power));
+        // make go slower when closer OR FACE DEATH
+        while (robot.frontLeft.isBusy() && robot.frontRight.isBusy() && robot.backLeft.isBusy() && robot.backRight.isBusy()) {
             //EMPTY. FOR. A. REASON.
         }
         robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
