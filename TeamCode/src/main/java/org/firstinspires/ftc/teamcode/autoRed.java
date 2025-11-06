@@ -24,7 +24,7 @@ public class autoRed extends LinearOpMode {
         robot.imu.initialize(parameters);
         robot.imu.resetYaw();
         waitForStart();
-        moveWithEncoders(.5,14);
+        moveWithEncoders(.5, 24);
 //        turnByAngle(-45);
 //        //scan april tag
 //        turnByAngle(45);
@@ -35,7 +35,7 @@ public class autoRed extends LinearOpMode {
 //        moveWithEncoders(50, 25);
 //        //deactivate intake
 //        moveWithEncoders(-50, -25);
-
+;
 //        }if(/* pgp */){
 //            moveWithEncoders(-100, -50);
 //            turnByAngle(90);
@@ -50,7 +50,14 @@ public class autoRed extends LinearOpMode {
 //            moveWithEncoders(50, 25);
 //            //deactivate intake
 //            moveWithEncoders(-50, -25);
+//        turnByAngle(90);
+//        moveWithEncoders(.5, 96);
+//    }
+        // turn 90 degrees go forward to front launch zone, turn 45 degrees (ish) activate extake (shoot) deactivate extake, get the last artifact of the correct pattern and another of a different pattern shoot
+
     }
+//
+
 
 
     public void driveBasic(double left, double right, long time) {
