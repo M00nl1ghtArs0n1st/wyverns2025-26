@@ -4,11 +4,11 @@
     <selectionStates>
       <SelectionState runConfigName="TeamCode">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-11-06T23:12:42.818769200Z">
+        <DropdownSelection timestamp="2025-11-07T23:09:29.661491400Z">
           <Target type="DEFAULT_BOOT">
-            <template>
-              <DeviceId pluginId="FirebaseDirectAccess" type="TEMPLATE" identifier="model_id=tokay/34" />
-            </template>
+            <handle>
+              <DeviceId pluginId="Default" identifier="serial=192.168.43.1:5555;connection=0cdafb21" />
+            </handle>
           </Target>
         </DropdownSelection>
         <DialogSelection />

@@ -24,34 +24,36 @@ public class autoRed extends LinearOpMode {
         robot.imu.initialize(parameters);
         robot.imu.resetYaw();
         waitForStart();
-        moveWithEncoders(.5, 24);
-//        turnByAngle(-45);
-//        //scan april tag
+        moveWithEncoders(.5, 24); //102 inch
 //        turnByAngle(45);
-//        if(/* gpp */){
-//        moveWithEncoders(-100, -25);
-//        turnByAngle(90);
+//        //scan april tag
+//        turnByAngle(-45);
+//       if(/* gpp */){
+//       turnByAngle(90);
 //        //activate intake
-//        moveWithEncoders(50, 25);
+//        moveWithEncoders(.5, 30);
 //        //deactivate intake
-//        moveWithEncoders(-50, -25);
-;
-//        }if(/* pgp */){
-//            moveWithEncoders(-100, -50);
-//            turnByAngle(90);
-//            //activate intake
-//            moveWithEncoders(50, 25);
-//            //deactivate intake
-//            moveWithEncoders(-50, -25);
-//        } else /*ppg*/{
-//            moveWithEncoders(-100,-75);
-//            turnByAngle(90);
-//            //activate intake
-//            moveWithEncoders(50, 25);
-//            //deactivate intake
-//            moveWithEncoders(-50, -25);
+//       moveWithEncoders(-.50, -30);
 //        turnByAngle(90);
 //        moveWithEncoders(.5, 96);
+//       }if(/* pgp */){
+//            moveWithEncoders(-1, -50);
+//            turnByAngle(90);
+//            //activate intake
+//            moveWithEncoders(.50, 25);
+//            //deactivate intake
+//            moveWithEncoders(-.50, -25);
+//        } else /*ppg*/{
+//            moveWithEncoders(-1.00,-75);
+//            turnByAngle(90);
+//            //activate intake
+//            moveWithEncoders(.50, 25);
+//            //deactivate intake
+//            moveWithEncoders(-.50, -25);
+//        } else /*ppg*/{
+//            turnByAngle(-45);
+//        //scan april tag
+//        turnByAngle(45);
 //    }
         // turn 90 degrees go forward to front launch zone, turn 45 degrees (ish) activate extake (shoot) deactivate extake, get the last artifact of the correct pattern and another of a different pattern shoot
 
@@ -107,42 +109,43 @@ public class autoRed extends LinearOpMode {
     }
 
     public void moveWithEncoders(double power, int targetDistance) { //velocity is in ticks per second not percentages
-
-        robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        double initvalue = robot.frontLeft.getCurrentPosition();
         double CPR = 28 * 20; //counts per revolution 28 times gear ratio 20:1
         double circumference = Math.PI * 4.778;
         double circumferencesInTargetDist= targetDistance/circumference;
-        int A = (int) Math.round(circumferencesInTargetDist);
-        int B = (int) Math.round(CPR);
-        int targetPosition = A * B;
-        double TPS = 5 * CPR;//ticks per second
+        double targetPosition = (circumferencesInTargetDist * CPR) - initvalue;
 
-        robot.frontLeft.setTargetPosition(targetPosition);
-        robot.frontRight.setTargetPosition(targetPosition);
-        robot.backLeft.setTargetPosition(targetPosition);
-        robot.backRight.setTargetPosition(targetPosition);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.frontLeft.setVelocity(TPS * Math.abs(power));
-        robot.frontRight.setVelocity(TPS * Math.abs(power));
-        robot.backRight.setVelocity(TPS * Math.abs(power));
-        robot.backLeft.setVelocity(TPS * Math.abs(power));
-//        robot.frontLeft.setPower(Math.abs(power));
-//        robot.frontRight.setPower(Math.abs(power));
-//        robot.backRight.setPower(Math.abs(power));
-//        robot.backLeft.setPower(Math.abs(power));
-        // make go slower when closer OR FACE DEATH
-        while (robot.frontLeft.isBusy() && robot.frontRight.isBusy() && robot.backLeft.isBusy() && robot.backRight.isBusy()) {
-            //EMPTY. FOR. A. REASON.
+//
+//        robot.frontLeft.setTargetPosition(A);
+//        robot.frontRight.setTargetPosition(A);
+//        robot.backLeft.setTargetPosition(A); //sets position in ticks
+//        robot.backRight.setTargetPosition(A);
+//        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+//        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+//        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION); //robot will go to set position
+//        robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        double distanceFromTarget= robot.frontRight.getCurrentPosition() - targetPosition;
+        robot.frontLeft.setPower(power);
+        robot.frontRight.setPower(power);
+        robot.backLeft.setPower(power);
+        robot.backRight.setPower(power);
+        while (Math.abs(distanceFromTarget) < 250) {
+             distanceFromTarget = robot.frontRight.getCurrentPosition() - targetPosition;
+             if (distanceFromTarget > 0) {
+                 driveFunction(0.25,0.25);
+             } else {
+                 driveFunction(-0.25,-0.25);
+            }
         }
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        driveStop(); //TEST LOSER
+
+
+//        while (robot.frontLeft.isBusy() && robot.frontRight.isBusy() && robot.backLeft.isBusy() && robot.backRight.isBusy()) {
+//            //EMPTY. FOR. A. REASON.
+//        }
+//        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
     }
 }

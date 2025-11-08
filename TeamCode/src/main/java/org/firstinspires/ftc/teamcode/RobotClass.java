@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -25,10 +26,14 @@ public class RobotClass {
 
 
             // configures your robot so that the program can interact with it
+            limelight = hardwareMap.get(Limelight3A.class, "limelight");
             frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
             frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
             backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
             backRight = hardwareMap.get(DcMotorEx.class, "backRight");
+
+
+            limelight.pipelineSwitch(0);
 
             // robot configuration for test chassis
             backRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -37,6 +42,10 @@ public class RobotClass {
             frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
             // Retrieve the IMU from the hardware map
             imu = hardwareMap.get(IMU.class, "imu");
