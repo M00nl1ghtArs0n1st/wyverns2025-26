@@ -131,7 +131,7 @@ public class autoRed extends LinearOpMode {
         robot.backRight.setPower(power);
         while (Math.abs(distanceFromTarget) < 250) {
              distanceFromTarget = robot.frontRight.getCurrentPosition() - targetPosition;
-             if (distanceFromTarget > 0) {
+             if (targetPosition > 0) {
                  driveFunction(0.25,0.25);
              } else {
                  driveFunction(-0.25,-0.25);

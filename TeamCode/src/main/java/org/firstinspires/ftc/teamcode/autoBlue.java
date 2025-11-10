@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.content.ContentProviderResult;
+
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
 import java.lang.Math;
@@ -21,17 +24,19 @@ public class autoBlue extends LinearOpMode {
         robot.imu.initialize(parameters);
         robot.imu.resetYaw();
         waitForStart();
-        turnByAngle(45);
-        //scan april tag
-        turnByAngle(-45);
-//        if(/* gpp */){
-        moveWithEncoders(-100, -25);
-        turnByAngle(90);
-        //activate intake
-        moveWithEncoders(50, 25);
-        //deactivate intake
-        moveWithEncoders(-50, -25);
-//        }if(/* pgp */){
+        moveWithEncoders(.5, 24); //102 inch
+//        turnByAngle(45);
+//        //scan april tag
+//        turnByAngle(-45);
+//       if(/* gpp */){
+//       turnByAngle(90);
+//        //activate intake
+//        moveWithEncoders(.5, 30);
+//        //deactivate intake
+//       moveWithEncoders(-.50, -30);
+//        turnByAngle(90);
+//        moveWithEncoders(.5, 96);
+//       }if(/* pgp */){
 //            moveWithEncoders(-1, -50);
 //            turnByAngle(90);
 //            //activate intake
@@ -45,27 +50,17 @@ public class autoBlue extends LinearOpMode {
 //            moveWithEncoders(.50, 25);
 //            //deactivate intake
 //            moveWithEncoders(-.50, -25);
-    }
+//        } else /*ppg*/{
+//            turnByAngle(-45);
+//        //scan april tag
+//        turnByAngle(45);
+//    }
+        // turn 90 degrees go forward to front launch zone, turn 45 degrees (ish) activate extake (shoot) deactivate extake, get the last artifact of the correct pattern and another of a different pattern shoot
 
-    public void driveStraight(double power, long time /* long variable type is really big so its for time-based purposes */) {
-        robot.imu.resetYaw();
-        ElapsedTime Runtime = new ElapsedTime(); //makes a new timer
-        Runtime.reset(); //resets this timer (if this is the second time the command has been used
-        long endtime = (time * 1000000) + Runtime.nanoseconds(); //calculates what time the robot needs to start at and converts it to nanoseconds so the variable remains a long
-        //set all motor powers
-        while (endtime >= Runtime.nanoseconds()) { // does things during the specified time
-            while (robot.getHeading() > 0) {
-                driveFunction(power - .1, power + .1); //veers left
-            }
-            while (robot.getHeading() < 0) {
-                driveFunction(power + .1, power - .1);//veers right
-            }
-            while (robot.getHeading() == 0) {
-                driveFunction(power, power); // just goes straight
-            }
-        }
-        driveStop(); //stops after the specified amount of time has passed
     }
+//
+
+
 
     public void driveBasic(double left, double right, long time) {
         driveFunction(left, right);
@@ -113,37 +108,44 @@ public class autoBlue extends LinearOpMode {
         driveStop(); //stops robot after it has turned
     }
 
-    public void moveWithEncoders(double velocity, int targetDistance) { //velocity is in ticks per second not percentages distance in inches
-
-        robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        double CPR = 28; //counts per revolution CALCULATE IN GEAR REDUCTION OR DIE LOSER
+    public void moveWithEncoders(double power, int targetDistance) { //velocity is in ticks per second not percentages
+        double initvalue = robot.frontLeft.getCurrentPosition();
+        double CPR = 28 * 20; //counts per revolution 28 times gear ratio 20:1
         double circumference = Math.PI * 4.778;
-        double circumferencesInTargetDist = targetDistance / circumference;
-        int A = (int) Math.round(circumferencesInTargetDist);
-        int B = (int) Math.round(CPR);
-        int targetPosition = A * B;
-        robot.frontLeft.setTargetPosition(targetPosition);
-        robot.frontRight.setTargetPosition(targetPosition);
-        robot.backLeft.setTargetPosition(targetPosition);
-        robot.backRight.setTargetPosition(targetPosition);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.frontLeft.setVelocity(Math.abs(velocity));
-        robot.frontRight.setVelocity(Math.abs(velocity));
-        robot.backRight.setVelocity(Math.abs(velocity));
-        robot.backLeft.setVelocity(Math.abs(velocity));
-        while (robot.frontLeft.getCurrentPosition() < targetPosition && robot.frontRight.getCurrentPosition() < targetPosition && robot.backLeft.getCurrentPosition() < targetPosition && robot.backRight.getCurrentPosition() < targetPosition) {
-            //EMPTY. FOR. A. REASON.
+        double circumferencesInTargetDist= targetDistance/circumference;
+        double targetPosition = (circumferencesInTargetDist * CPR) - initvalue;
+
+//
+//        robot.frontLeft.setTargetPosition(A);
+//        robot.frontRight.setTargetPosition(A);
+//        robot.backLeft.setTargetPosition(A); //sets position in ticks
+//        robot.backRight.setTargetPosition(A);
+//        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+//        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+//        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION); //robot will go to set position
+//        robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        double distanceFromTarget= robot.frontRight.getCurrentPosition() - targetPosition;
+        while (Math.abs(distanceFromTarget) >= 250) {
+            distanceFromTarget = robot.frontRight.getCurrentPosition() - targetPosition;
+            driveFunction(power,power);
         }
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        while (Math.abs(distanceFromTarget) < 250 && Math.abs(distanceFromTarget) > 10) {
+            distanceFromTarget = robot.frontRight.getCurrentPosition() - targetPosition;
+            if (distanceFromTarget > 0) {
+                driveFunction(0.25,0.25);
+            } else {
+                driveFunction(-0.25,-0.25);
+            }
+        }
+        driveStop();
+
+
+//        while (robot.frontLeft.isBusy() && robot.frontRight.isBusy() && robot.backLeft.isBusy() && robot.backRight.isBusy()) {
+//            //EMPTY. FOR. A. REASON.
+//        }
+//        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
     }
 }
-
