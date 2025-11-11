@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
 import java.lang.Math;
-import com.qualcomm.robotcore.util.ElapsedTime;
+
 
 @Autonomous
 public class autoBlue extends LinearOpMode {
@@ -18,18 +18,14 @@ public class autoBlue extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot = new RobotClass(hardwareMap);
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
-        robot.imu.initialize(parameters);
         robot.imu.resetYaw();
         waitForStart();
-        moveWithEncoders(.5, 24); //102 inch
+        moveWithEncoders(.5, 24);//102 inch
 //        turnByAngle(45);
 //        //scan april tag
 //        turnByAngle(-45);
 //       if(/* gpp */){
-//       turnByAngle(90);
+//       turnByAngle(90);ok
 //        //activate intake
 //        moveWithEncoders(.5, 30);
 //        //deactivate intake
@@ -59,7 +55,6 @@ public class autoBlue extends LinearOpMode {
 
     }
 //
-
 
 
     public void driveBasic(double left, double right, long time) {
@@ -112,40 +107,38 @@ public class autoBlue extends LinearOpMode {
         double initvalue = robot.frontLeft.getCurrentPosition();
         double CPR = 28 * 20; //counts per revolution 28 times gear ratio 20:1
         double circumference = Math.PI * 4.778;
-        double circumferencesInTargetDist= targetDistance/circumference;
-        double targetPosition = (circumferencesInTargetDist * CPR) - initvalue;
-
-//
-//        robot.frontLeft.setTargetPosition(A);
-//        robot.frontRight.setTargetPosition(A);
-//        robot.backLeft.setTargetPosition(A); //sets position in ticks
-//        robot.backRight.setTargetPosition(A);
-//        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-//        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-//        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION); //robot will go to set position
-//        robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        double distanceFromTarget= robot.frontRight.getCurrentPosition() - targetPosition;
-        while (Math.abs(distanceFromTarget) >= 250) {
-            distanceFromTarget = robot.frontRight.getCurrentPosition() - targetPosition;
-            driveFunction(power,power);
-        }
-        while (Math.abs(distanceFromTarget) < 250 && Math.abs(distanceFromTarget) > 10) {
-            distanceFromTarget = robot.frontRight.getCurrentPosition() - targetPosition;
-            if (distanceFromTarget > 0) {
-                driveFunction(0.25,0.25);
-            } else {
-                driveFunction(-0.25,-0.25);
+        double circumferencesInTargetDist = targetDistance / circumference;
+        double targetPosition = (circumferencesInTargetDist * CPR) + initvalue;
+        double distanceFromTarget = robot.frontRight.getCurrentPosition() - targetPosition;
+        robot.frontLeft.setPower(power);
+        robot.frontRight.setPower(power);
+        robot.backLeft.setPower(power);
+        robot.backRight.setPower(power);
+        if (distanceFromTarget > 0){
+            while (distanceFromTarget > 250) {
+                distanceFromTarget = robot.frontRight.getCurrentPosition() - targetPosition;
+            }
+            while (distanceFromTarget > 0){
+                distanceFromTarget = robot.frontRight.getCurrentPosition() - targetPosition;
+                driveFunction(.25,.25);
+            }
+        } else {
+            while (distanceFromTarget < 250) {
+                distanceFromTarget = robot.frontRight.getCurrentPosition() - targetPosition;
+            }
+            while (distanceFromTarget < 0){
+                distanceFromTarget = robot.frontRight.getCurrentPosition() - targetPosition;
+                driveFunction(-.25,-.25);
             }
         }
-        driveStop();
+        driveStop(); //TEST LOSER MAKE WORK OR FACE DEATH
+    }
 
 
 //        while (robot.frontLeft.isBusy() && robot.frontRight.isBusy() && robot.backLeft.isBusy() && robot.backRight.isBusy()) {
 //            //EMPTY. FOR. A. REASON.
-//        }
+    }
 //        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 //        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 //        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 //        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-    }
-}

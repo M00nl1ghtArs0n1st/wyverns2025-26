@@ -33,7 +33,7 @@ public class RobotClass {
             backRight = hardwareMap.get(DcMotorEx.class, "backRight");
 
 
-            limelight.pipelineSwitch(0);
+
 
             // robot configuration for test chassis
             backRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -42,6 +42,10 @@ public class RobotClass {
             frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
             backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
