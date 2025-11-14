@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
-
+import com.qualcomm.robotcore.hardware.CRServo;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -17,7 +17,8 @@ import com.qualcomm.hardware.limelightvision.LLStatus;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 public class RobotClass {
-        public DcMotorEx frontLeft, frontRight, backRight, backLeft;
+        public DcMotorEx frontLeft, frontRight, backRight, backLeft, intakeMotor, flywheelMotor;
+        public CRServo intakeServo;
 
         public IMU imu;
         public Limelight3A limelight;
@@ -27,6 +28,9 @@ public class RobotClass {
 
             // configures your robot so that the program can interact with it
             limelight = hardwareMap.get(Limelight3A.class, "limelight");
+            intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+            flywheelMotor = hardwareMap.get(DcMotorEx.class, "flywheelMotor");
+            intakeServo = hardwareMap.get(CRServo.class, "intakeServo");
             frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
             frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
             backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
@@ -36,6 +40,9 @@ public class RobotClass {
 
 
             // robot configuration for test chassis
+            intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            flywheelMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            intakeServo.setDirection(CRServo.Direction.FORWARD);
             backRight.setDirection(DcMotorSimple.Direction.REVERSE);
             frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
             frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);

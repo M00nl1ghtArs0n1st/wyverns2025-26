@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 //Made by Finch (Will)
@@ -27,6 +28,8 @@ public class SixWheelDrive extends LinearOpMode{
 
         // Put stuff here you want to do after "init", before "play"
 
+
+
         waitForStart();
         while (!isStopRequested()) { //program wouldnt start without this
             //gamepad1: driver gamepad
@@ -35,7 +38,25 @@ public class SixWheelDrive extends LinearOpMode{
             double tankRight = gamepad1.right_stick_y;
             double arcadeTurn = gamepad1.right_stick_x;
             //this seems useless, but if you need to reverse a control, you can just add "-" before the reference
+            boolean intakeStart = gamepad2.left_bumper;
+            boolean flywheelStart = gamepad2.right_bumper;
+            boolean threeProngStart = gamepad2.b;
+            if (intakeStart) {
+                robot.intakeMotor.setPower(.5);
+            } else {
+                robot.intakeMotor.setPower(0);
+            }
 
+            if (flywheelStart) {
+                robot.flywheelMotor.setPower(1);
+            } else {
+                robot.flywheelMotor.setPower(0);
+            }
+            if (threeProngStart) {
+
+            } else {
+
+            }
             if (usingTankDrive) {
                 //left side
                 robot.frontLeft.setPower(tankLeft);
@@ -48,8 +69,7 @@ public class SixWheelDrive extends LinearOpMode{
                 robot.backLeft.setPower(tankLeft + arcadeTurn);
                 robot.frontRight.setPower(tankLeft - arcadeTurn);
                 robot.backRight.setPower(tankLeft - arcadeTurn);
-                }
             }
-
+        }
         }
     }
