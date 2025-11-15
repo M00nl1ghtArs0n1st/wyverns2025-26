@@ -44,7 +44,7 @@ public class SixWheelDrive extends LinearOpMode{
 //            if (intakeStart) {
 //                robot.intakeMotor.setPower(.5);
 //            } else {
-//                robot.intakeMotor.setPower(0);
+//                robot.intakeMotor.setPower(0); woah thats crazy
 //            }
 //
 //            if (flywheelStart) {

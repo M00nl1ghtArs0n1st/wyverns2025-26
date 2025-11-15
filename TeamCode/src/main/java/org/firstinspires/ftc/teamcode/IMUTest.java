@@ -65,7 +65,7 @@ public class IMUTest extends LinearOpMode{
     public void turnByAngle (double angle){
         robot.imu.resetYaw();
         double angleDistance;
-        angleDistance = Math.abs(angle); //finds how far the robot needs to go
+        angleDistance = Math.abs(angle); //finds how far the robot needs to go thats wild
         if(angle < 0){
             driveFunction(-.375,.375); //sets initial motor powers
             while(Math.abs(robot.getHeading()) < (angleDistance - 30)){
