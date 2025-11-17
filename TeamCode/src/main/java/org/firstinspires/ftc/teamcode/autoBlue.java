@@ -21,37 +21,8 @@ public class autoBlue extends LinearOpMode {
         robot.imu.resetYaw();
         waitForStart();
         moveWithEncoders(24, 24);//102 inch
-//        turnByAngle(45);
-//        //scan april tag
-//        turnByAngle(-45);
-//       if(/* gpp */){
-//       turnByAngle(90);ok
-//        //activate intake
-//        moveWithEncoders(.5, 30);
-//        //deactivate intake
-//       moveWithEncoders(-.50, -30);
-//        turnByAngle(90);
-//        moveWithEncoders(.5, 96);
-//       }if(/* pgp */){
-//            moveWithEncoders(-1, -50);
-//            turnByAngle(90);
-//            //activate intake
-//            moveWithEncoders(.50, 25);
-//            //deactivate intake
-//            moveWithEncoders(-.50, -25);
-//        } else /*ppg*/{
-//            moveWithEncoders(-1.00,-75);
-//            turnByAngle(90);
-//            //activate intake
-//            moveWithEncoders(.50, 25);
-//            //deactivate intake
-//            moveWithEncoders(-.50, -25);
-//        } else /*ppg*/{
-//            turnByAngle(-45);
-//        //scan april tag
-//        turnByAngle(45);
-//    }
-        // turn 90 degrees go forward to front launch zone, turn 45 degrees (ish) activate extake (shoot) deactivate extake, get the last artifact of the correct pattern and another of a different pattern shoot
+
+
 
     }
 //
@@ -138,4 +109,22 @@ public class autoBlue extends LinearOpMode {
         robot.frontRight.setVelocity(TPS);
         robot.frontLeft.setVelocity(TPS);
     }
+    //    public void shootArtifacts() {
+//        double CPR = 28 * (1/20);
+//        double TPS = (175/60) * CPR;
+//        robot.flywheelMotor.setVelocity(TPS);
+//        sleep(3000); //flywheel get to speed
+//        robot.flywheelServo.setPower(.5);
+//        sleep(1000); //wait for shooting to happen loser
+//        robot.flywheelServo.setPower(0);
+//        robot.flywheelMotor.setVelocity(0);
+//    }
+//    public void intakeArtifact() {
+//        double CPR = 28 * (29/860);
+//        double TPS = (175/60) * CPR;
+//        robot.intakeMotor.setVelocity(TPS);
+//    }
+//    public void stopIntake() {
+//        robot.intakeMotor.setVelocity(0);
+//    }
 }

@@ -19,43 +19,46 @@ public class autoRed extends LinearOpMode {
     public void runOpMode() {
         robot = new RobotClass(hardwareMap);
         robot.imu.resetYaw();
+        //PRELOAD 2 PURPLE!!!!!
         waitForStart();
         driveBasic(.5,.5, 1000);//102 inch
-//        driveBasic(.5, .5, 1000);
-//        turnByAngle(45);
-//        //scan april tag
-//        turnByAngle(-45);
-//       if(/* gpp */){
-//       turnByAngle(90);ok
-//        //activate intake
-//        moveWithEncoders(.5, 30);
-//        //deactivate intake
-//       moveWithEncoders(-.50, -30);
-//        turnByAngle(90);
-//        moveWithEncoders(.5, 96);
-//       }if(/* pgp */){
-//            moveWithEncoders(-1, -50);
-//            turnByAngle(90);
-//            //activate intake
-//            moveWithEncoders(.50, 25);
-//            //deactivate intake
-//            moveWithEncoders(-.50, -25);
-//        } else /*ppg*/{
-//            moveWithEncoders(-1.00,-75);
-//            turnByAngle(90);
-//            //activate intake
-//            moveWithEncoders(.50, 25);
-//            //deactivate intake
-//            moveWithEncoders(-.50, -25);
-//        } else /*ppg*/{
-//            turnByAngle(-45);
-//        //scan april tag
-//        turnByAngle(45);
-//    }
-        // turn 90 degrees go forward to front launch zone, turn 45 degrees (ish) activate extake (shoot) deactivate extake, get the last artifact of the correct pattern and another of a different pattern shoot
+        turnByAngle(45);
+        // shootArtifacts();
+        turnByAngle(-90);
+        // SCAN APRILTAG MAKE FUNCTION LOSERSSSSSSSSSSSSS
+        turnByAngle(45);
+        if (1==1/* gpp */) {
+            moveWithEncoders(-24,-24);//drives to 3rd set of artifacts
+            //turnByAngle(90);
+            // intakeArtifacts();
+            //moveWithEncoders(10,10); //intake uno artifact
+            //stopIntake();
+            //moveWithEncoders(-10,-10);
+            //turnByAngle(-90);
+            moveWithEncoders(-66,-66);
+            //moveWithEncoders(10,10); //intake uno artifact
+            //stopIntake();
+            //moveWithEncoders(-10,-10);
+            //turnByAngle(-90);
+            moveWithEncoders(90,90);
+            turnByAngle(45);
+            // shootArtifacts();
+            turnByAngle(-45);
+            moveWithEncoders(-90,-90);
+            //turnByAngle(90);
+            // intakeArtifacts();
+            //moveWithEncoders(30,30); //intake tres artifact
+            //stopIntake();
+            //moveWithEncoders(-30,-30);
+            //turnByAngle(-90);
+            moveWithEncoders(90,90);
+            turnByAngle(45);
+            //shootArtifacts();
+            turnByAngle(-45);
+        } if (1 != 1/*pgp */) {
 
+        }
     }
-//
 
 
 
@@ -140,4 +143,22 @@ public class autoRed extends LinearOpMode {
         robot.frontRight.setVelocity(TPS);
         robot.frontLeft.setVelocity(TPS);
     }
+    //public void shootArtifacts() {
+//        double CPR = 28 * (1/20);
+//        double TPS = (175/60) * CPR;
+//        robot.flywheelMotor.setVelocity(TPS);
+//        sleep(3000); //flywheel get to speed
+//        robot.flywheelServo.setPower(.5);
+//        sleep(1000); //wait for shooting to happen loser
+//        robot.flywheelServo.setPower(0);
+//        robot.flywheelMotor.setVelocity(0);
+//    }
+//    public void intakeArtifact() {
+//        double CPR = 28 * (29/860);
+//        double TPS = (175/60) * CPR;
+//        robot.intakeMotor.setVelocity(TPS);
+//    }
+//    public void stopIntake() {
+//        robot.intakeMotor.setVelocity(0);
+//    }
 }

@@ -14,10 +14,6 @@ public class SixWheelAutoTest extends LinearOpMode {
         robot = new RobotClass(hardwareMap);
         waitForStart();
         moveWithEncoders(24, 24);
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
     }
     public void driveBasic(double left,double right,long time /* long variable type is really big so its for time-based purposes */) { //left: left side power, right: right side power, time: for how long
         //set all motor powers
@@ -99,5 +95,23 @@ public class SixWheelAutoTest extends LinearOpMode {
         robot.backLeft.setVelocity(TPS);
         robot.frontRight.setVelocity(TPS);
         robot.frontLeft.setVelocity(TPS);
-           }
-       }
+    }
+//    public void shootArtifacts() {
+//        double CPR = 28 * (1/20);
+//        double TPS = (175/60) * CPR;
+//        robot.flywheelMotor.setVelocity(TPS);
+//        sleep(3000); //flywheel get to speed
+//        robot.flywheelServo.setPower(.5);
+//        sleep(1000); //wait for shooting to happen loser
+//        robot.flywheelServo.setPower(0);
+//        robot.flywheelMotor.setVelocity(0);
+//    }
+//    public void intakeArtifact() {
+//        double CPR = 28 * (29/860);
+//        double TPS = (175/60) * CPR;
+//        robot.intakeMotor.setVelocity(TPS);
+//    }
+//    public void stopIntake() {
+//        robot.intakeMotor.setVelocity(0);
+//    }
+}
