@@ -127,23 +127,47 @@ public class autoRed extends LinearOpMode {
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        double TPS = (175/60) * CPR; //what that number
-        // set the initial position target:
-        robot.frontLeft.setTargetPosition(leftPos);
-        robot.frontRight.setTargetPosition(rightPos);
-        robot.backLeft.setTargetPosition(leftPos);
-        robot.backRight.setTargetPosition(rightPos);
-        // Turn the motor back on, required if you use STOP_AND_RESET_ENCODER
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-
-        // set the velocity of the motor
-        robot.backRight.setPower(.5);
-        robot.backLeft.setPower(.5);
-        robot.frontRight.setPower(.5);
-        robot.frontLeft.setPower(.5);
+        if (leftPos > 0) {
+            driveFunction(.5,.5);
+            while (robot.backRight.getCurrentPosition() < rightPos -1000 && robot.backLeft.getCurrentPosition() < leftPos - 1000) {
+            }
+            driveFunction(.25,.25);
+            while (robot.backRight.getCurrentPosition() < rightPos -100 && robot.backLeft.getCurrentPosition() < leftPos - 100) {
+            }
+        } else {
+            driveFunction(-.5, -.5);
+            while (robot.backRight.getCurrentPosition() > rightPos +1000 && robot.backLeft.getCurrentPosition() > leftPos + 1000) {
+            }
+            driveFunction(-.25,-.25);
+            while (robot.backRight.getCurrentPosition() > rightPos + 100 && robot.backLeft.getCurrentPosition() > leftPos + 100) {
+            }
+        }
+        driveStop();
+//        robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        double TPS = (175/60) * CPR; //what that number
+//        // set the initial position target:
+//        robot.frontLeft.setTargetPosition(leftPos);
+//        robot.frontRight.setTargetPosition(rightPos);
+//        robot.backLeft.setTargetPosition(leftPos);
+//        robot.backRight.setTargetPosition(rightPos);
+//        // Turn the motor back on, required if you use STOP_AND_RESET_ENCODER
+//        robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+//        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+//        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+//        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+//
+//        // set the velocity of the motor
+//        robot.backRight.setPower(.5);
+//        robot.backLeft.setPower(.5);
+//        robot.frontRight.setPower(.5);
+//        robot.frontLeft.setPower(.5);
     }
     //public void shootArtifacts() {
 //        double CPR = 28 * (1/20);
