@@ -122,7 +122,7 @@ public class autoRed extends LinearOpMode {
         double circumference = Math.PI * 115;
         double countsPerMM = CPR / circumference;
         int leftPos = (int)((leftTarget/304.8) * countsPerMM);
-        int rightPos = (int)((rightTarget) * countsPerMM);
+        int rightPos = (int)((rightTarget/304.8) * countsPerMM);
         robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -131,6 +131,8 @@ public class autoRed extends LinearOpMode {
         // set the initial position target:
         robot.frontLeft.setTargetPosition(leftPos);
         robot.frontRight.setTargetPosition(rightPos);
+        robot.backLeft.setTargetPosition(leftPos);
+        robot.backRight.setTargetPosition(rightPos);
         // Turn the motor back on, required if you use STOP_AND_RESET_ENCODER
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
