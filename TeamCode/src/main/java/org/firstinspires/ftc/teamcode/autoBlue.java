@@ -106,10 +106,10 @@ public class autoBlue extends LinearOpMode {
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         // set the velocity of the motor
-        robot.backRight.setVelocity(TPS);
-        robot.backLeft.setVelocity(TPS);
-        robot.frontRight.setVelocity(TPS);
-        robot.frontLeft.setVelocity(TPS);
+        robot.backRight.setPower(.5);
+        robot.backLeft.setPower(.5);
+        robot.frontRight.setPower(.5);
+        robot.frontLeft.setPower(.5);
     }
     //    public void shootArtifacts() {
 //        double CPR = 28 * (1/20);

@@ -21,13 +21,13 @@ public class RobotClass {
 //        public CRServo flywheelServo;
 
         public IMU imu;
-        public Limelight3A limelight;
+//        public Limelight3A limelight;
 
         public RobotClass(HardwareMap hardwareMap){
 
 
             // configures your robot so that the program can interact with it
-            limelight = hardwareMap.get(Limelight3A.class, "limelight");
+//            limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
 //            intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
 //            flywheelMotor = hardwareMap.get(DcMotorEx.class, "flywheelMotor");
