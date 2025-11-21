@@ -93,10 +93,10 @@ public class autoBlue extends LinearOpMode {
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         if (leftPos > 0) {
             driveFunction(.5,.5);
             while (robot.backRight.getCurrentPosition() < rightPos -1000 && robot.backLeft.getCurrentPosition() < leftPos - 1000) {
