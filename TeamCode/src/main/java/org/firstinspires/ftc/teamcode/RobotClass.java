@@ -87,3 +87,8 @@ public class RobotClass {
         return theta.thirdAngle;
     }
 }
+// TO DO
+// Fix encoder distance calculations
+// Set up Limelight
+// Set up telemetry (ADDISON DO IT OR DIE)
+// Look through make sure auto correcto losers

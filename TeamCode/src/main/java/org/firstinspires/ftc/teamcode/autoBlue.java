@@ -20,10 +20,93 @@ public class autoBlue extends LinearOpMode {
         robot = new RobotClass(hardwareMap);
         robot.imu.resetYaw();
         waitForStart();
-        moveWithEncoders(24, 24);//102 inch
-
-
-
+        if (1==1/* gpp */) {
+            moveWithEncoders(-24,-24);//drives to 3rd set of artifacts
+            //turnByAngle(-90);
+            // intakeArtifacts();
+            //moveWithEncoders(10,10); //intake uno artifact (purple)
+            //stopIntake();
+            //moveWithEncoders(-10,-10);
+            //turnByAngle(90);
+            moveWithEncoders(-66,-66);
+            //moveWithEncoders(10,10); //intake uno artifact (green)
+            //stopIntake();
+            //moveWithEncoders(-10,-10);
+            //turnByAngle(-90);
+            moveWithEncoders(90,90);
+            turnByAngle(-45);
+            // shootArtifacts();
+            turnByAngle(45);
+            moveWithEncoders(-90,-90);
+            //turnByAngle(-90);
+            // intakeArtifacts();
+            //moveWithEncoders(30,30); //intake dos artifact purple purple
+            //stopIntake();
+            //moveWithEncoders(-30,-30);
+            //turnByAngle(90);
+            moveWithEncoders(90,90);
+            turnByAngle(-45);
+            //shootArtifacts();
+            turnByAngle(45);
+        } else if (1 != 1/*pgp */) {
+            moveWithEncoders(-24,-24);//drives to 3rd set of artifacts
+            //turnByAngle(-90);
+            // intakeArtifacts();
+            //moveWithEncoders(10,10); //intake dos artifact (purple purple)
+            //stopIntake();
+            //moveWithEncoders(-10,-10);
+            //turnByAngle(90);
+            moveWithEncoders(24,24);
+            turnByAngle(-45);
+            // shootArtifacts();
+            turnByAngle(45);
+            moveWithEncoders(-90,-90);
+            //turnByAngle(-90);
+            // intakeArtifacts();
+            //moveWithEncoders(30,30); //intake uno artifact green
+            //stopIntake();
+            //moveWithEncoders(-30,-30);
+            //turnByAngle(90);
+            moveWithEncoders(-90,-90);
+            //turnByAngle(-90);
+            // intakeArtifacts();
+            //moveWithEncoders(30,30); //intake uno artifact purple
+            //stopIntake();
+            //moveWithEncoders(-30,-30);
+            //turnByAngle(90);
+            moveWithEncoders(90,90);
+            turnByAngle(-45);
+            //shootArtifacts();
+            turnByAngle(45);
+        } else /* ppg */ {
+            moveWithEncoders(-24, -24);
+            //turnByAngle(-90);
+            // intakeArtifacts();
+            //moveWithEncoders(10,10); //intake uno artifact (green)
+            //stopIntake();
+            //moveWithEncoders(-10,-10);
+            //turnByAngle(90);
+            moveWithEncoders(-66, -66);
+            //moveWithEncoders(10,10); //intake uno artifact (purple)
+            //stopIntake();
+            //moveWithEncoders(-10,-10);
+            //turnByAngle(-90);
+            moveWithEncoders(90, 90);
+            turnByAngle(45);
+            // shootArtifacts();
+            turnByAngle(-45);
+            moveWithEncoders(-90, -90);
+            //turnByAngle(90);
+            // intakeArtifacts();
+            //moveWithEncoders(30,30); //intake dos artifact purple green
+            //stopIntake();
+            //moveWithEncoders(-30,-30);
+            //turnByAngle(90);
+            moveWithEncoders(90, 90);
+            turnByAngle(45);
+            //shootArtifacts();
+            turnByAngle(-45);
+        }
     }
 //
 
@@ -60,35 +143,34 @@ public class autoBlue extends LinearOpMode {
         robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.imu.resetYaw();
-        double angleDistance;
-        angleDistance = Math.abs(angle); //finds how far the robot needs to go
+        //finds how far the robot needs to go
         if (angle < 0) {
             driveFunction(-.375, .375); //sets initial motor powers
-            while (Math.abs(robot.getHeading()) > (angleDistance + 30)) {
+            while (robot.getHeading() > (angle +30)) {
                 //empty like my soul
             }//waits until the robot only needs to turn 30 more degrees
             driveFunction(-.25, .25); //robot slows down to be more accurate
-            while (Math.abs(robot.getHeading()) > (angleDistance+5)) {
+            while (robot.getHeading() > (angle + 5)) {
                 //EMPTY ON PURPOSE LOSER
             }// waits for the robot to turn all the way
         } else {
             driveFunction(.375, -.375);//sets initial motor powers
-            while (Math.abs(robot.getHeading()) < (angleDistance - 30)) {
+            while (robot.getHeading() < (angle -30 )) {
                 //do I have to say it again?
             } //waits until the robot only has to turn 30 more degrees
             driveFunction(.25, -.25); //robot slows to be more accurate
-            while (Math.abs(robot.getHeading()) < angleDistance-5) {
+            while (robot.getHeading() < (angle-5)) {
                 //EMPTY ON PURPOSE EVEN WORSE LOSER
             } //waits for the robot to turn to the specified angle
         }
         driveStop(); //stops robot after it has turned
     }
-    public void moveWithEncoders(int leftTarget, int rightTarget) { //velocity is in ticks per second not percentages
-        double CPR = 28 * (29/860); //counts per revolution 28 times gear ratio 20:1
-        double circumference = Math.PI * 115;
-        double countsPerMM = CPR / circumference;
-        int leftPos = (int)((leftTarget/304.8) * countsPerMM);
-        int rightPos = (int)((rightTarget/304.8) * countsPerMM);
+    public void moveWithEncoders(int leftPos, int rightPos) { //velocity is in ticks per second not percentages
+//        double CPR = 28 * (28); //counts per revolution 28 times gear ratio 20:1
+//        double circumference = Math.PI * 115;
+//        double countsPerMM = CPR / circumference;
+//        double leftPos = ((leftTarget/304.8) * countsPerMM);
+//        double rightPos =((rightTarget/304.8) * countsPerMM);
         robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -97,19 +179,29 @@ public class autoBlue extends LinearOpMode {
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        double currentPosRight = robot.backRight.getCurrentPosition();
+        double currentPosLeft = robot.backLeft.getCurrentPosition();
         if (leftPos > 0) {
             driveFunction(.5,.5);
-            while (robot.backRight.getCurrentPosition() < rightPos -1000 && robot.backLeft.getCurrentPosition() < leftPos - 1000) {
+            while (currentPosRight < rightPos - 100 && currentPosLeft < leftPos - 100) {
+                currentPosLeft = robot.backLeft.getCurrentPosition();
+                currentPosRight = robot.backRight.getCurrentPosition();
             }
             driveFunction(.25,.25);
-            while (robot.backRight.getCurrentPosition() < rightPos -100 && robot.backLeft.getCurrentPosition() < leftPos - 100) {
+            while (currentPosRight < rightPos - 50 && currentPosLeft < leftPos - 50) {
+                currentPosRight = robot.backRight.getCurrentPosition();
+                currentPosLeft = robot.backLeft.getCurrentPosition();
             }
         } else {
             driveFunction(-.5, -.5);
-            while (robot.backRight.getCurrentPosition() > rightPos +1000 && robot.backLeft.getCurrentPosition() > leftPos + 1000) {
+            while (currentPosRight > rightPos + 100 && currentPosLeft > leftPos +100) {
+                currentPosLeft = robot.backLeft.getCurrentPosition();
+                currentPosRight = robot.backRight.getCurrentPosition();
             }
             driveFunction(-.25,-.25);
-            while (robot.backRight.getCurrentPosition() > rightPos + 100 && robot.backLeft.getCurrentPosition() > leftPos + 100) {
+            while (currentPosRight > rightPos + 50 && currentPosLeft > leftPos + 50) {
+                currentPosLeft = robot.backLeft.getCurrentPosition();
+                currentPosRight = robot.backRight.getCurrentPosition();
             }
         }
         driveStop();
@@ -135,7 +227,7 @@ public class autoBlue extends LinearOpMode {
 //        robot.frontRight.setPower(.5);
 //        robot.frontLeft.setPower(.5);
     }
-    //    public void shootArtifacts() {
+//    public void shootArtifacts() {
 //        double CPR = 28 * (1/20);
 //        double TPS = (175/60) * CPR;
 //        robot.flywheelMotor.setVelocity(TPS);

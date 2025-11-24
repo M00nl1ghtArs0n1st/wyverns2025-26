@@ -13,7 +13,11 @@ public class SixWheelAutoTest extends LinearOpMode {
     public void runOpMode() {
         robot = new RobotClass(hardwareMap);
         waitForStart();
-        moveWithEncoders(24, 24);
+        moveWithEncoders(25000, 25000);
+        robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
     }
     public void driveBasic(double left,double right,long time /* long variable type is really big so its for time-based purposes */) { //left: left side power, right: right side power, time: for how long
         //set all motor powers
@@ -69,12 +73,12 @@ public class SixWheelAutoTest extends LinearOpMode {
         }
         driveStop(); //stops robot after it has turned
     }
-    public void moveWithEncoders(int leftTarget, int rightTarget) { //velocity is in ticks per second not percentages
-        double CPR = 28 * (28); //counts per revolution 28 times gear ratio 20:1
-        double circumference = Math.PI * 115;
-        double countsPerMM = CPR / circumference;
-        double leftPos = ((leftTarget/304.8) * countsPerMM);
-        double rightPos =((rightTarget/304.8) * countsPerMM);
+    public void moveWithEncoders(int leftPos, int rightPos) { //velocity is in ticks per second not percentages
+//        double CPR = 28 * (28); //counts per revolution 28 times gear ratio 20:1
+//        double circumference = Math.PI * 115;
+//        double countsPerMM = CPR / circumference;
+//        double leftPos = ((leftTarget/304.8) * countsPerMM);
+//        double rightPos =((rightTarget/304.8) * countsPerMM);
         robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
