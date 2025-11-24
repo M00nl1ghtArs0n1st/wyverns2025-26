@@ -13,7 +13,7 @@ public class SixWheelAutoTest extends LinearOpMode {
     public void runOpMode() {
         robot = new RobotClass(hardwareMap);
         waitForStart();
-        moveWithEncoders(25000, 25000);
+        moveWithEncoders(5000, 5000);
         robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
