@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -19,8 +21,8 @@ import com.qualcomm.hardware.limelightvision.Limelight3A;
 public class RobotClass {
         public DcMotorEx frontLeft, frontRight, backRight, backLeft/*, intakeMotor, flywheelMotor */;
 //        public CRServo flywheelServo;
-
         public IMU imu;
+        public Telemetry telemetry;
 //        public Limelight3A limelight;
 
         public RobotClass(HardwareMap hardwareMap){

@@ -13,13 +13,24 @@ public class SixWheelAutoTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         robot = new RobotClass(hardwareMap);
+
         waitForStart();
-        moveWithEncoders(2500, 2500);
-        robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        while (opModeIsActive()) {
+            moveWithEncoders(2100, 2100);
+            retrieveTelemetry();
+            robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        }
     }
+    public void retrieveTelemetry() {
+        telemetry.addData("Left Position", robot.backLeft.getCurrentPosition());
+        telemetry.addData("Right Position", robot.backRight.getCurrentPosition());
+        telemetry.addData("Differences in Position", robot.backLeft.getCurrentPosition() - robot.backRight.getCurrentPosition());
+        telemetry.addData("Heading", robot.getHeading());
+    }
+
 
     public void driveBasic(double left, double right, long time /* long variable type is really big so its for time-based purposes */) { //left: left side power, right: right side power, time: for how long
         //set all motor powers
@@ -60,18 +71,22 @@ public class SixWheelAutoTest extends LinearOpMode {
             driveFunction(-.375, .375); //sets initial motor powers
             while (robot.getHeading() > (angle + 30)) {
                 //empty like my soul
+                retrieveTelemetry();
             }//waits until the robot only needs to turn 30 more degrees
             driveFunction(-.25, .25); //robot slows down to be more accurate
             while (robot.getHeading() > (angle + 5)) {
+                retrieveTelemetry();
                 //EMPTY ON PURPOSE LOSER
             }// waits for the robot to turn all the way
         } else {
             driveFunction(.375, -.375);//sets initial motor powers
             while (robot.getHeading() < (angle - 30)) {
+                retrieveTelemetry();
                 //do I have to say it again?
             } //waits until the robot only has to turn 30 more degrees
             driveFunction(.25, -.25); //robot slows to be more accurate
             while (robot.getHeading() < (angle - 5)) {
+                retrieveTelemetry();
                 //EMPTY ON PURPOSE EVEN WORSE LOSER
             } //waits for the robot to turn to the specified angle
         }
@@ -97,54 +112,107 @@ public class SixWheelAutoTest extends LinearOpMode {
         double currentPosLeft = robot.backLeft.getCurrentPosition();
         double differencesInPos;
         if (leftPos > 0) {
-            driveFunction(.5, .5);
+            driveFunction(.35, .35);
             while (currentPosRight < rightPos - 100 && currentPosLeft < leftPos - 100) {
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 currentPosRight = robot.backRight.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
-                if (differencesInPos < 10) {
-                    driveFunction(.575, .425);
+                retrieveTelemetry();
+
+                while (differencesInPos > 10) {
+                    currentPosLeft = robot.backLeft.getCurrentPosition();
+                    currentPosRight = robot.backRight.getCurrentPosition();
+                    differencesInPos = currentPosLeft - currentPosRight;
+                    driveFunction(.34, .36);
+                    retrieveTelemetry();
                 }
-                if (differencesInPos > -10) {
-                    driveFunction(.425, .575);
+                while (differencesInPos < -10) {
+                    currentPosLeft = robot.backLeft.getCurrentPosition();
+                    currentPosRight = robot.backRight.getCurrentPosition();
+                    differencesInPos = currentPosLeft - currentPosRight;
+                    driveFunction(.36, .34);
+                    retrieveTelemetry();
                 }
+                driveFunction(.35, .35);
+
             }
             driveFunction(.25, .25);
             while (currentPosRight < rightPos - 50 && currentPosLeft < leftPos - 50) {
                 currentPosRight = robot.backRight.getCurrentPosition();
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
-                if (differencesInPos < 10) {
-                    driveFunction(.575, .425);
+                retrieveTelemetry();
+                while (differencesInPos > 10) {
+                    currentPosLeft = robot.backLeft.getCurrentPosition();
+                    currentPosRight = robot.backRight.getCurrentPosition();
+                    differencesInPos = currentPosLeft - currentPosRight;
+                    driveFunction(.24, .26);
+                    retrieveTelemetry();
                 }
-                if (differencesInPos > -10) {
-                    driveFunction(.425, .575);
+                while (differencesInPos < -10) {
+                    currentPosLeft = robot.backLeft.getCurrentPosition();
+                    currentPosRight = robot.backRight.getCurrentPosition();
+                    differencesInPos = currentPosLeft - currentPosRight;
+                    driveFunction(.26, .24);
+                    retrieveTelemetry();
                 }
+                driveFunction(.25, .25);
+
             }
         } else {
-            driveFunction(-.5, -.5);
+            driveFunction(-.35, -.35);
             while (currentPosRight > rightPos + 100 && currentPosLeft > leftPos + 100) {
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 currentPosRight = robot.backRight.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
-                if (differencesInPos > 10) {
-                    driveFunction(-.575, -.425);
+                retrieveTelemetry();
+                while (differencesInPos > 10) {
+                    currentPosLeft = robot.backLeft.getCurrentPosition();
+                    currentPosRight = robot.backRight.getCurrentPosition();
+                    differencesInPos = currentPosLeft - currentPosRight;
+                    driveFunction(-.34, -.36);
+                    retrieveTelemetry();
                 }
-                if (differencesInPos < -10) {
-                    driveFunction(-.425, -.575);
+                while (differencesInPos < -10) {
+                    currentPosLeft = robot.backLeft.getCurrentPosition();
+                    currentPosRight = robot.backRight.getCurrentPosition();
+                    differencesInPos = currentPosLeft - currentPosRight;
+                    driveFunction(-.36, -.34);
+                    retrieveTelemetry();
                 }
+                driveFunction(-.35, -.35);
+
             }
             driveFunction(-.25, -.25);
-            while (currentPosRight > rightPos + 50 && currentPosLeft > leftPos + 50) {
+            while (currentPosRight > rightPos + 50 || currentPosLeft > leftPos + 50) {
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 currentPosRight = robot.backRight.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
-                if (differencesInPos > 10) {
-                    driveFunction(.575, .425);
+                retrieveTelemetry();
+                while (differencesInPos > 5) {
+                    currentPosLeft = robot.backLeft.getCurrentPosition();
+                    currentPosRight = robot.backRight.getCurrentPosition();
+                    differencesInPos = currentPosLeft - currentPosRight;
+                    driveFunction(-.24, -.26);
+                    retrieveTelemetry();
                 }
-                if (differencesInPos < -10) {
-                    driveFunction(.425, .575);
+                while (differencesInPos < -5) {
+                    currentPosLeft = robot.backLeft.getCurrentPosition();
+                    currentPosRight = robot.backRight.getCurrentPosition();
+                    differencesInPos = currentPosLeft - currentPosRight;
+                    driveFunction(-.26, -.24);
+                    retrieveTelemetry();
                 }
+                driveFunction(-.25, -.25);
+            }
+            while (currentPosRight < rightPos + 50) {
+                currentPosRight = robot.backRight.getCurrentPosition();
+                driveFunction(0, .2);
+                retrieveTelemetry();
+            }
+            while (currentPosLeft < leftPos + 50) {
+                currentPosLeft = robot.backLeft.getCurrentPosition();
+                retrieveTelemetry();
             }
         }
         if (robot.getHeading() != 0) {
@@ -171,4 +239,5 @@ public class SixWheelAutoTest extends LinearOpMode {
 //        robot.intakeMotor.setVelocity(0);
 //    }
     }
+
 }
