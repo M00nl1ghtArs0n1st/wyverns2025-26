@@ -97,16 +97,16 @@ public class SixWheelAutoTest extends LinearOpMode {
         double currentPosLeft = robot.backLeft.getCurrentPosition();
         double differencesInPos;
         if (leftPos > 0) {
-            driveFunction(.5, .5);
+            driveFunction(.35, .35);
             while (currentPosRight < rightPos - 100 && currentPosLeft < leftPos - 100) {
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 currentPosRight = robot.backRight.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
                 if (differencesInPos < 10) {
-                    driveFunction(.575, .425);
+                    driveFunction(.575, .275);
                 }
                 if (differencesInPos > -10) {
-                    driveFunction(.425, .575);
+                    driveFunction(.275, .575);
                 }
             }
             driveFunction(.25, .25);
@@ -115,10 +115,10 @@ public class SixWheelAutoTest extends LinearOpMode {
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
                 if (differencesInPos < 10) {
-                    driveFunction(.575, .425);
+                    driveFunction(.575, .275);
                 }
                 if (differencesInPos > -10) {
-                    driveFunction(.425, .575);
+                    driveFunction(.275, .575);
                 }
             }
         } else {
@@ -128,10 +128,10 @@ public class SixWheelAutoTest extends LinearOpMode {
                 currentPosRight = robot.backRight.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
                 if (differencesInPos > 10) {
-                    driveFunction(-.575, -.425);
+                    driveFunction(-.575, -.275);
                 }
                 if (differencesInPos < -10) {
-                    driveFunction(-.425, -.575);
+                    driveFunction(-.275, -.575);
                 }
             }
             driveFunction(-.25, -.25);
@@ -140,10 +140,10 @@ public class SixWheelAutoTest extends LinearOpMode {
                 currentPosRight = robot.backRight.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
                 if (differencesInPos > 10) {
-                    driveFunction(.575, .425);
+                    driveFunction(-.575, -.275);
                 }
                 if (differencesInPos < -10) {
-                    driveFunction(.425, .575);
+                    driveFunction(-.275, .575);
                 }
             }
         }
