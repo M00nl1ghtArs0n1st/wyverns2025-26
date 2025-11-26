@@ -27,92 +27,94 @@ public class autoRed extends LinearOpMode {
         turnByAngle(-90);
         // SCAN APRILTAG MAKE FUNCTION LOSERSSSSSSSSSSSSS
         turnByAngle(45);
-        if (1==1/* gpp */) {
-            moveWithEncoders(-24,-24);//drives to 3rd set of artifacts
-            //turnByAngle(90);
-            // intakeArtifacts();
-            //moveWithEncoders(10,10); //intake uno artifact (purple)
-            //stopIntake();
-            //moveWithEncoders(-10,-10);
-            //turnByAngle(-90);
-            moveWithEncoders(-66,-66);
-            //moveWithEncoders(10,10); //intake uno artifact (green)
-            //stopIntake();
-            //moveWithEncoders(-10,-10);
-            //turnByAngle(-90);
-            moveWithEncoders(90,90);
-            turnByAngle(45);
-            // shootArtifacts();
-            turnByAngle(-45);
-            moveWithEncoders(-90,-90);
-            //turnByAngle(90);
-            // intakeArtifacts();
-            //moveWithEncoders(30,30); //intake dos artifact purple purple
-            //stopIntake();
-            //moveWithEncoders(-30,-30);
-            //turnByAngle(-90);
-            moveWithEncoders(90,90);
-            turnByAngle(45);
-            //shootArtifacts();
-            turnByAngle(-45);
-        } else if (1 != 1/*pgp */) {
-            moveWithEncoders(-24,-24);//drives to 3rd set of artifacts
-            //turnByAngle(90);
-            // intakeArtifacts();
-            //moveWithEncoders(10,10); //intake dos artifact (purple purple)
-            //stopIntake();
-            //moveWithEncoders(-10,-10);
-            //turnByAngle(-90);
-            moveWithEncoders(24,24);
-            turnByAngle(45);
-            // shootArtifacts();
-            turnByAngle(-45);
-            moveWithEncoders(-90,-90);
-            //turnByAngle(90);
-            // intakeArtifacts();
-            //moveWithEncoders(30,30); //intake uno artifact green
-            //stopIntake();
-            //moveWithEncoders(-30,-30);
-            //turnByAngle(-90);
-            moveWithEncoders(-90,-90);
-            //turnByAngle(90);
-            // intakeArtifacts();
-            //moveWithEncoders(30,30); //intake uno artifact purple
-            //stopIntake();
-            //moveWithEncoders(-30,-30);
-            //turnByAngle(-90);
-            moveWithEncoders(90,90);
-            turnByAngle(45);
-            //shootArtifacts();
-            turnByAngle(-45);
-        } else /* ppg */{
-            moveWithEncoders(-24,-24);
-            //turnByAngle(90);
-            // intakeArtifacts();
-            //moveWithEncoders(10,10); //intake uno artifact (green)
-            //stopIntake();
-            //moveWithEncoders(-10,-10);
-            //turnByAngle(-90);
-            moveWithEncoders(-66,-66);
-            //moveWithEncoders(10,10); //intake uno artifact (purple)
-            //stopIntake();
-            //moveWithEncoders(-10,-10);
-            //turnByAngle(-90);
-            moveWithEncoders(90,90);
-            turnByAngle(45);
-            // shootArtifacts();
-            turnByAngle(-45);
-            moveWithEncoders(-90,-90);
-            //turnByAngle(90);
-            // intakeArtifacts();
-            //moveWithEncoders(30,30); //intake dos artifact purple green
-            //stopIntake();
-            //moveWithEncoders(-30,-30);
-            //turnByAngle(-90);
-            moveWithEncoders(90,90);
-            turnByAngle(45);
-            //shootArtifacts();
-            turnByAngle(-45);
+        while(opModeIsActive()) {
+            if (1 == 1/* gpp */) {
+                moveWithEncoders(-24, -24);//drives to 3rd set of artifacts
+                //turnByAngle(90);
+                // intakeArtifacts();
+                //moveWithEncoders(10,10); //intake uno artifact (purple)
+                //stopIntake();
+                //moveWithEncoders(-10,-10);
+                //turnByAngle(-90);
+                moveWithEncoders(-66, -66);
+                //moveWithEncoders(10,10); //intake uno artifact (green)
+                //stopIntake();
+                //moveWithEncoders(-10,-10);
+                //turnByAngle(-90);
+                moveWithEncoders(90, 90);
+                turnByAngle(45);
+                // shootArtifacts();
+                turnByAngle(-45);
+                moveWithEncoders(-90, -90);
+                //turnByAngle(90);
+                // intakeArtifacts();
+                //moveWithEncoders(30,30); //intake dos artifact purple purple
+                //stopIntake();
+                //moveWithEncoders(-30,-30);
+                //turnByAngle(-90);
+                moveWithEncoders(90, 90);
+                turnByAngle(45);
+                //shootArtifacts();
+                turnByAngle(-45);
+            } else if (1 != 1/*pgp */) {
+                moveWithEncoders(-24, -24);//drives to 3rd set of artifacts
+                //turnByAngle(90);
+                // intakeArtifacts();
+                //moveWithEncoders(10,10); //intake dos artifact (purple purple)
+                //stopIntake();
+                //moveWithEncoders(-10,-10);
+                //turnByAngle(-90);
+                moveWithEncoders(24, 24);
+                turnByAngle(45);
+                // shootArtifacts();
+                turnByAngle(-45);
+                moveWithEncoders(-90, -90);
+                //turnByAngle(90);
+                // intakeArtifacts();
+                //moveWithEncoders(30,30); //intake uno artifact green
+                //stopIntake();
+                //moveWithEncoders(-30,-30);
+                //turnByAngle(-90);
+                moveWithEncoders(-90, -90);
+                //turnByAngle(90);
+                // intakeArtifacts();
+                //moveWithEncoders(30,30); //intake uno artifact purple
+                //stopIntake();
+                //moveWithEncoders(-30,-30);
+                //turnByAngle(-90);
+                moveWithEncoders(90, 90);
+                turnByAngle(45);
+                //shootArtifacts();
+                turnByAngle(-45);
+            } else /* ppg */ {
+                moveWithEncoders(-24, -24);
+                //turnByAngle(90);
+                // intakeArtifacts();
+                //moveWithEncoders(10,10); //intake uno artifact (green)
+                //stopIntake();
+                //moveWithEncoders(-10,-10);
+                //turnByAngle(-90);
+                moveWithEncoders(-66, -66);
+                //moveWithEncoders(10,10); //intake uno artifact (purple)
+                //stopIntake();
+                //moveWithEncoders(-10,-10);
+                //turnByAngle(-90);
+                moveWithEncoders(90, 90);
+                turnByAngle(45);
+                // shootArtifacts();
+                turnByAngle(-45);
+                moveWithEncoders(-90, -90);
+                //turnByAngle(90);
+                // intakeArtifacts();
+                //moveWithEncoders(30,30); //intake dos artifact purple green
+                //stopIntake();
+                //moveWithEncoders(-30,-30);
+                //turnByAngle(-90);
+                moveWithEncoders(90, 90);
+                turnByAngle(45);
+                //shootArtifacts();
+                turnByAngle(-45);
+            }
         }
     }
 

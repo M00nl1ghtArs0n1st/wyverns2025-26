@@ -90,7 +90,6 @@ public class RobotClass {
     }
 }
 // TO DO
-// Fix encoder distance calculations
-// Set up Limelight
-// Set up telemetry (ADDISON DO IT OR DIE)
-// Look through make sure auto correcto losers
+// Fix encoder distance calculations 3RD
+// Set up Limelight 2ND DOCUMENTATION USE!! https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltags
+// Look through make sure auto correcto losers 1ST

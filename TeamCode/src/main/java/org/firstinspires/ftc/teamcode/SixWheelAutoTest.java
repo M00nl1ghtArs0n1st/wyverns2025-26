@@ -10,15 +10,17 @@ public class SixWheelAutoTest extends LinearOpMode {
     RobotClass robot;
 
     @Override
-    public void runOpMode() throws InterruptedException {
-
+    public void runOpMode() {
         robot = new RobotClass(hardwareMap);
         waitForStart();
-        moveWithEncoders(2500, 2500);
-        robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        while (opModeIsActive()) {
+
+            moveWithEncoders(2500, 2500);
+            robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        }
     }
 
     public void driveBasic(double left, double right, long time /* long variable type is really big so its for time-based purposes */) { //left: left side power, right: right side power, time: for how long
@@ -49,6 +51,14 @@ public class SixWheelAutoTest extends LinearOpMode {
         robot.backRight.setPower(0);
     } //stops all motors
 
+    public void retrieveTelemetry() {
+        telemetry.addData("Left Motor Position", robot.backLeft.getCurrentPosition());
+        telemetry.addData("Right Motor Position", robot.backRight.getCurrentPosition());
+        telemetry.addData("Difference in Position", robot.backLeft.getCurrentPosition() - robot.backRight.getCurrentPosition());
+        telemetry.addData("Robot Heading Angle", robot.getHeading());
+        telemetry.update();
+    }
+
     public void turnByAngle(double angle) {
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
@@ -60,18 +70,22 @@ public class SixWheelAutoTest extends LinearOpMode {
             driveFunction(-.375, .375); //sets initial motor powers
             while (robot.getHeading() > (angle + 30)) {
                 //empty like my soul
+                retrieveTelemetry();
             }//waits until the robot only needs to turn 30 more degrees
             driveFunction(-.25, .25); //robot slows down to be more accurate
             while (robot.getHeading() > (angle + 5)) {
                 //EMPTY ON PURPOSE LOSER
+                retrieveTelemetry();
             }// waits for the robot to turn all the way
         } else {
             driveFunction(.375, -.375);//sets initial motor powers
             while (robot.getHeading() < (angle - 30)) {
+                retrieveTelemetry();
                 //do I have to say it again?
             } //waits until the robot only has to turn 30 more degrees
             driveFunction(.25, -.25); //robot slows to be more accurate
             while (robot.getHeading() < (angle - 5)) {
+                retrieveTelemetry();
                 //EMPTY ON PURPOSE EVEN WORSE LOSER
             } //waits for the robot to turn to the specified angle
         }
@@ -102,11 +116,12 @@ public class SixWheelAutoTest extends LinearOpMode {
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 currentPosRight = robot.backRight.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
-                if (differencesInPos < 10) {
-                    driveFunction(.575, .275);
+                retrieveTelemetry();
+                if (differencesInPos > 10) {
+                    driveFunction(.34, .36);
                 }
-                if (differencesInPos > -10) {
-                    driveFunction(.275, .575);
+                if (differencesInPos < -10) {
+                    driveFunction(.36, .34);
                 }
             }
             driveFunction(.25, .25);
@@ -114,24 +129,26 @@ public class SixWheelAutoTest extends LinearOpMode {
                 currentPosRight = robot.backRight.getCurrentPosition();
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
-                if (differencesInPos < 10) {
-                    driveFunction(.575, .275);
+                retrieveTelemetry();
+                if (differencesInPos >10) {
+                    driveFunction(.34, .36);
                 }
-                if (differencesInPos > -10) {
-                    driveFunction(.275, .575);
+                if (differencesInPos < -10) {
+                    driveFunction(.36, .34);
                 }
             }
         } else {
-            driveFunction(-.5, -.5);
+            driveFunction(-.35, -.35);
             while (currentPosRight > rightPos + 100 && currentPosLeft > leftPos + 100) {
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 currentPosRight = robot.backRight.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
+                retrieveTelemetry();
                 if (differencesInPos > 10) {
-                    driveFunction(-.575, -.275);
+                    driveFunction(-.34, -.36);
                 }
                 if (differencesInPos < -10) {
-                    driveFunction(-.275, -.575);
+                    driveFunction(-.36, -.34);
                 }
             }
             driveFunction(-.25, -.25);
@@ -140,10 +157,11 @@ public class SixWheelAutoTest extends LinearOpMode {
                 currentPosRight = robot.backRight.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
                 if (differencesInPos > 10) {
-                    driveFunction(-.575, -.275);
+                    retrieveTelemetry();
+                    driveFunction(-.24, -.26);
                 }
                 if (differencesInPos < -10) {
-                    driveFunction(-.275, .575);
+                    driveFunction(-.24, -.26);
                 }
             }
         }
@@ -169,6 +187,6 @@ public class SixWheelAutoTest extends LinearOpMode {
 //    }
 //    public void stopIntake() {
 //        robot.intakeMotor.setVelocity(0);
-//    }sswwe
+//    }
     }
 }
