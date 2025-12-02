@@ -93,3 +93,5 @@ public class RobotClass {
 // Fix encoder distance calculations 3RD
 // Set up Limelight 2ND DOCUMENTATION USE!! https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltags
 // Look through make sure auto correcto losers 1ST
+// Cry
+//BACK LEFT MOTOR HAVING ISSUEEEEEE!!!!!!!!!! FIGURE OUT WITH ENCODERS

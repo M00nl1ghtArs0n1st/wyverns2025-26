@@ -9,16 +9,18 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 public class SixWheelAutoTest extends LinearOpMode {
     RobotClass robot;
 
+
     @Override
     public void runOpMode() {
         robot = new RobotClass(hardwareMap);
         waitForStart();
         while (opModeIsActive()) {
             robot.frontLeft.setPower(.5);
-            robot.frontRight.setPower(.5);
+            sleep(2000);
+            robot.frontLeft.setPower(0);
             robot.backLeft.setPower(.5);
-            robot.backRight.setPower(.5);
-
+            sleep(2000);
+            robot.backLeft.setPower(0);
 //            moveWithEncoders(1000, 1000);
             robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
