@@ -27,7 +27,6 @@ public class autoRed extends LinearOpMode {
         turnByAngle(-90);
         // SCAN APRILTAG MAKE FUNCTION LOSERSSSSSSSSSSSSS
         turnByAngle(45);
-        while(opModeIsActive()) {
             if (1 == 1/* gpp */) {
                 moveWithEncoders(-24, -24);//drives to 3rd set of artifacts
                 //turnByAngle(90);
@@ -114,7 +113,6 @@ public class autoRed extends LinearOpMode {
                 turnByAngle(45);
                 //shootArtifacts();
                 turnByAngle(-45);
-            }
         }
     }
 

@@ -25,6 +25,10 @@ public class SixWheelDrive extends LinearOpMode{
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+//        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
         // Put stuff here you want to do after "init", before "play"
 
@@ -34,6 +38,7 @@ public class SixWheelDrive extends LinearOpMode{
         while (!isStopRequested()) { //program wouldnt start without this
             //gamepad1: driver gamepad
             //gamepad2: tools gamepad
+            retrieveTelemetry();
             double tankLeft = gamepad1.left_stick_y; // will also be used for arcade controls (would be called arcadeForward)
             double tankRight = gamepad1.right_stick_y;
             double arcadeTurn = gamepad1.right_stick_x;
@@ -60,11 +65,23 @@ public class SixWheelDrive extends LinearOpMode{
                 robot.frontRight.setPower(-tankRight);
                 robot.backRight.setPower(-tankRight);
             } else {
+                retrieveTelemetry();
                 robot.frontLeft.setPower(tankLeft + arcadeTurn);
                 robot.backLeft.setPower(tankLeft + arcadeTurn);
                 robot.frontRight.setPower(tankLeft - arcadeTurn);
                 robot.backRight.setPower(tankLeft - arcadeTurn);
             }
         }
-        }
     }
+    public void retrieveTelemetry() {
+        boolean controlHubData = false;
+        telemetry.addData("Back Left Motor Position", robot.backLeft.getCurrentPosition());
+        telemetry.addData("Back Right Motor Position", robot.backRight.getCurrentPosition());
+        telemetry.addData("Front Left Motor Position", robot.frontLeft.getCurrentPosition());
+        telemetry.addData("Front Right Motor Position", robot.frontRight.getCurrentPosition());
+//        telemetry.addData("Difference in Position", robot.backLeft.getCurrentPosition() - robot.backRight.getCurrentPosition());
+        telemetry.addData("Robot Heading Angle", robot.getHeading());
+        telemetry.addData("control hub updated?", controlHubData);
+        telemetry.update();
+    }
+}

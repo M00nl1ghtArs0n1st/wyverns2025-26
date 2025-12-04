@@ -56,11 +56,10 @@ public class RobotClass {
 //            intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 //            flywheelMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
-            frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); //STOP_AND RESET
             frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); //With just back medium amount to the right, with just front slightly to left, with all of them a lot to the left
 
 //            intakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 //            flywheelMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
@@ -70,10 +69,10 @@ public class RobotClass {
             backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
             backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-            backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//            backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//            backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//            frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//            frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
             // Retrieve the IMU from the hardware map
             imu = hardwareMap.get(IMU.class, "imu");
@@ -94,4 +93,4 @@ public class RobotClass {
 // Set up Limelight 2ND DOCUMENTATION USE!! https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltags
 // Look through make sure auto correcto losers 1ST
 // Cry
-//BACK LEFT MOTOR HAVING ISSUEEEEEE!!!!!!!!!! FIGURE OUT WITH ENCODERS
+//FRONT RIGHT MOTOR MAIN ISSUE, FIX OR DIE
