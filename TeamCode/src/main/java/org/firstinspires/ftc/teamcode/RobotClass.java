@@ -48,10 +48,10 @@ public class RobotClass {
 //            flywheelMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 //            flywheelServo.setDirection(CRServo.Direction.FORWARD);
 
-            backLeft.setDirection(DcMotorSimple.Direction.FORWARD); //sixWheelPracticeBot FORWARD
-            frontLeft.setDirection(DcMotorSimple.Direction.FORWARD); //sixWheelPracticeBot FORWARD
-            backRight.setDirection(DcMotorSimple.Direction.REVERSE); //sixWheelPracticeBot REVERSE
-            frontRight.setDirection(DcMotorSimple.Direction.REVERSE); //sixWheelPracticeBot REVERSE
+            backLeft.setDirection(DcMotorSimple.Direction.REVERSE); //sixWheelPracticeBot REVERSE
+            frontLeft.setDirection(DcMotorSimple.Direction.REVERSE); //sixWheelPracticeBotREVERSE
+            backRight.setDirection(DcMotorSimple.Direction.FORWARD); //sixWheelPracticeBot FORWARD
+            frontRight.setDirection(DcMotorSimple.Direction.FORWARD); //sixWheelPracticeBot FORWARD
 
 //            intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 //            flywheelMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -64,8 +64,8 @@ public class RobotClass {
 //            intakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 //            flywheelMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-            frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-            frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+            frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
             backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
             backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
@@ -79,7 +79,7 @@ public class RobotClass {
             // Adjust the orientation parameters to match your robot
             IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                     RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                    RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
+                    RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
             // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
             imu.initialize(parameters);
         }
@@ -89,8 +89,4 @@ public class RobotClass {
     }
 }
 // TO DO
-// Fix encoder distance calculations 3RD
-// Set up Limelight 2ND DOCUMENTATION USE!! https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltags
-// Look through make sure auto correcto losers 1ST
-// Cry
 //FRONT RIGHT MOTOR MAIN ISSUE, FIX OR DIE
