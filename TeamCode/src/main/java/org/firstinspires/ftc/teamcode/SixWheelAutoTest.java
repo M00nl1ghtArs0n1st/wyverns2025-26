@@ -15,7 +15,7 @@ public class SixWheelAutoTest extends LinearOpMode {
         robot = new RobotClass(hardwareMap);
         waitForStart();
         retrieveTelemetry();
-//        moveWithEncoders(1900);
+        moveWithEncoders(100); //change to 1900
         turnByAngle(22.5);
         //SCAN APRIL TAG LOSER
     }
@@ -60,10 +60,10 @@ public class SixWheelAutoTest extends LinearOpMode {
     }
 
     public void turnByAngle(double angle) {
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.imu.resetYaw();
         //finds how far the robot needs to go
         if (angle < 0) {
@@ -103,15 +103,15 @@ public class SixWheelAutoTest extends LinearOpMode {
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         double currentPosRight = robot.backRight.getCurrentPosition();
         double currentPosLeft = robot.backLeft.getCurrentPosition();
         double differencesInPos;
         if (position > 0) {
-            driveFunction(.35, .40);//CHANGE BACK TO .35
+            driveFunction(.35 , .40);//CHANGE BACK TO .35
             while (/* currentPosRight < position - 100 && */ currentPosLeft < position - 100) {
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 currentPosRight = robot.backRight.getCurrentPosition();

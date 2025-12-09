@@ -48,10 +48,10 @@ public class RobotClass {
 //            flywheelMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 //            flywheelServo.setDirection(CRServo.Direction.FORWARD);
 
-            backLeft.setDirection(DcMotorSimple.Direction.REVERSE); //sixWheelPracticeBot REVERSE
-            frontLeft.setDirection(DcMotorSimple.Direction.REVERSE); //sixWheelPracticeBotREVERSE
-            backRight.setDirection(DcMotorSimple.Direction.FORWARD); //sixWheelPracticeBot FORWARD
-            frontRight.setDirection(DcMotorSimple.Direction.FORWARD); //sixWheelPracticeBot FORWARD
+            backLeft.setDirection(DcMotorSimple.Direction.FORWARD); //sixWheelPracticeBot REVERSE
+            frontLeft.setDirection(DcMotorSimple.Direction.FORWARD); //sixWheelPracticeBotREVERSE
+            backRight.setDirection(DcMotorSimple.Direction.REVERSE); //sixWheelPracticeBot FORWARD
+            frontRight.setDirection(DcMotorSimple.Direction.REVERSE); //sixWheelPracticeBot FORWARD
 
 //            intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 //            flywheelMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -64,8 +64,8 @@ public class RobotClass {
 //            intakeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 //            flywheelMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-            frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-            frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+            frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
             backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
             backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
@@ -90,3 +90,4 @@ public class RobotClass {
 }
 // TO DO
 //FRONT RIGHT MOTOR MAIN ISSUE, FIX OR DIE
+//

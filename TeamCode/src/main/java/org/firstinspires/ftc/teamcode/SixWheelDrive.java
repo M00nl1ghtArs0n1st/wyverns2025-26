@@ -21,14 +21,14 @@ public class SixWheelDrive extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         //hardware mapping from driver hub
         robot = new RobotClass(hardwareMap);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-//        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-//        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-//        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-//        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
         // Put stuff here you want to do after "init", before "play"
 
@@ -39,9 +39,9 @@ public class SixWheelDrive extends LinearOpMode{
             //gamepad1: driver gamepad
             //gamepad2: tools gamepad
             retrieveTelemetry();
-            double tankLeft = gamepad1.left_stick_y; // will also be used for arcade controls (would be called arcadeForward)
-            double tankRight = gamepad1.right_stick_y;
-            double arcadeTurn = gamepad1.right_stick_x;
+            double tankLeft = -gamepad1.left_stick_y; // will also be used for arcade controls (would be called arcadeForward)
+            double tankRight = +gamepad1.right_stick_y;
+            double arcadeTurn = -gamepad1.right_stick_x;
             //this seems useless, but if you need to reverse a control, you can just add "-" before the reference
 //            boolean intakeStart = gamepad2.left_bumper;
 //            double flywheelStart = gamepad2.right_trigger;
@@ -66,10 +66,10 @@ public class SixWheelDrive extends LinearOpMode{
                 robot.backRight.setPower(-tankRight);
             } else {
                 retrieveTelemetry();
-                robot.frontLeft.setPower(tankLeft + arcadeTurn);
-                robot.backLeft.setPower(tankLeft + arcadeTurn);
-                robot.frontRight.setPower(tankLeft - arcadeTurn);
-                robot.backRight.setPower(tankLeft - arcadeTurn);
+                robot.frontLeft.setPower(tankLeft -arcadeTurn);
+                robot.backLeft.setPower(tankLeft -arcadeTurn);
+                robot.frontRight.setPower(tankLeft +arcadeTurn);
+                robot.backRight.setPower(tankLeft +arcadeTurn);
             }
         }
     }
