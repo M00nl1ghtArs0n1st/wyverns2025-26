@@ -15,8 +15,9 @@ public class SixWheelAutoTest extends LinearOpMode {
         robot = new RobotClass(hardwareMap);
         waitForStart();
         retrieveTelemetry();
-        moveWithEncoders(100); //change to 1900
-        turnByAngle(22.5);
+//        moveWithEncoders(1900);
+        turnByAngle(45);
+
         //SCAN APRIL TAG LOSER
     }
 
@@ -51,8 +52,10 @@ public class SixWheelAutoTest extends LinearOpMode {
 
     public void retrieveTelemetry() {
         boolean controlHubData = true;
-        telemetry.addData("Left Motor Position", robot.backLeft.getCurrentPosition());
-        telemetry.addData("Right Motor Position", robot.backRight.getCurrentPosition());
+        telemetry.addData("Back Left Motor Position", robot.backLeft.getCurrentPosition());
+        telemetry.addData("Back Right Motor Position", robot.backRight.getCurrentPosition());
+        telemetry.addData("Front Left Motor Position", robot.frontLeft.getCurrentPosition());
+        telemetry.addData("Front Right Motor Position", robot.frontRight.getCurrentPosition());
 //        telemetry.addData("Difference in Position", robot.backLeft.getCurrentPosition() - robot.backRight.getCurrentPosition());
         telemetry.addData("Robot Heading Angle", robot.getHeading());
         telemetry.addData("control hub updated?", controlHubData);
@@ -60,10 +63,10 @@ public class SixWheelAutoTest extends LinearOpMode {
     }
 
     public void turnByAngle(double angle) {
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.imu.resetYaw();
         //finds how far the robot needs to go
         if (angle < 0) {
@@ -78,8 +81,8 @@ public class SixWheelAutoTest extends LinearOpMode {
                 retrieveTelemetry();
             }// waits for the robot to turn all the way
         } else {
-            driveFunction(.375, -.375);//sets initial motor powers
-            while (robot.getHeading() < (angle - 30)) {
+            driveFunction(.375, -.375);// sets initial motor powers
+            while (robot.getHeading() < (angle -30)) {
                 retrieveTelemetry();
                 //do I have to say it again?
             } //waits until the robot only has to turn 30 more degrees
@@ -103,15 +106,15 @@ public class SixWheelAutoTest extends LinearOpMode {
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         double currentPosRight = robot.backRight.getCurrentPosition();
         double currentPosLeft = robot.backLeft.getCurrentPosition();
         double differencesInPos;
         if (position > 0) {
-            driveFunction(.35 , .40);//CHANGE BACK TO .35
+            driveFunction(.35 , .35);//CHANGE BACK TO .35
             while (/* currentPosRight < position - 100 && */ currentPosLeft < position - 100) {
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 currentPosRight = robot.backRight.getCurrentPosition();
@@ -124,7 +127,7 @@ public class SixWheelAutoTest extends LinearOpMode {
 //                    driveFunction(.36, .34);
 //                }
             }
-            driveFunction(.25, .3);//CHANGE BACK TO .25
+            driveFunction(.25, .25);//CHANGE BACK TO .25
             while (/* currentPosRight < position - 50 && */  currentPosLeft < position - 50) {
                 currentPosRight = robot.backRight.getCurrentPosition();
                 currentPosLeft = robot.backLeft.getCurrentPosition();
@@ -138,7 +141,7 @@ public class SixWheelAutoTest extends LinearOpMode {
 //                }
             }
         } else {
-            driveFunction(-.35, -.4); //CHANGE BACK TO .4
+            driveFunction(-.4, -.4); //CHANGE BACK TO .4
             while (/* currentPosRight > position + 100 && */currentPosLeft > position + 100) {
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 currentPosRight = robot.backRight.getCurrentPosition();
@@ -151,7 +154,7 @@ public class SixWheelAutoTest extends LinearOpMode {
 //                    driveFunction(-.36, -.34);
 //                }
             }
-            driveFunction(-.25, -.3);//CHANGE BACK TO .3
+            driveFunction(-.25, -.25);//CHANGE BACK TO .3
             while (/*currentPosRight > position + 50 && */currentPosLeft > position + 50) {
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 currentPosRight = robot.backRight.getCurrentPosition();

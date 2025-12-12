@@ -25,10 +25,11 @@ public class SixWheelDrive extends LinearOpMode{
         robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.imu.resetYaw();
 
         // Put stuff here you want to do after "init", before "play"
 
@@ -41,22 +42,22 @@ public class SixWheelDrive extends LinearOpMode{
             retrieveTelemetry();
             double tankLeft = -gamepad1.left_stick_y; // will also be used for arcade controls (would be called arcadeForward)
             double tankRight = +gamepad1.right_stick_y;
-            double arcadeTurn = -gamepad1.right_stick_x;
+            double arcadeTurn = gamepad1.right_stick_x;
             //this seems useless, but if you need to reverse a control, you can just add "-" before the reference
 //            boolean intakeStart = gamepad2.left_bumper;
-//            double flywheelStart = gamepad2.right_trigger;
-//            boolean threeProngStart = gamepad2.b;
+            double flywheelStart = gamepad2.right_trigger;
+            boolean threeProngStart = gamepad2.b;
 //            if (intakeStart) {
 //                robot.intakeMotor.setPower(.5);
 //            } else {
 //                robot.intakeMotor.setPower(0);
 //            }
-//            if (threeProngStart) {
-//                robot.flywheelServo.setPower(1);
-//            } else {
-//                robot.flywheelServo.setPower(0);
-//            }
-//            robot.flywheelMotor.setPower(flywheelStart);
+            if (threeProngStart) {
+                robot.flywheelServo.setPower(1);
+            } else {
+                robot.flywheelServo.setPower(0);
+            }
+            robot.flywheelMotor.setPower(flywheelStart * .5);
             if (usingTankDrive) {
                 //left side
                 robot.frontLeft.setPower(tankLeft);
@@ -66,15 +67,15 @@ public class SixWheelDrive extends LinearOpMode{
                 robot.backRight.setPower(-tankRight);
             } else {
                 retrieveTelemetry();
-                robot.frontLeft.setPower(tankLeft -arcadeTurn);
-                robot.backLeft.setPower(tankLeft -arcadeTurn);
-                robot.frontRight.setPower(tankLeft +arcadeTurn);
-                robot.backRight.setPower(tankLeft +arcadeTurn);
+                robot.frontLeft.setPower(tankLeft +arcadeTurn);
+                robot.backLeft.setPower(tankLeft +arcadeTurn);
+                robot.frontRight.setPower(tankLeft -arcadeTurn);
+                robot.backRight.setPower(tankLeft -arcadeTurn);
             }
         }
     }
     public void retrieveTelemetry() {
-        boolean controlHubData = false;
+        boolean controlHubData = true;
         telemetry.addData("Back Left Motor Position", robot.backLeft.getCurrentPosition());
         telemetry.addData("Back Right Motor Position", robot.backRight.getCurrentPosition());
         telemetry.addData("Front Left Motor Position", robot.frontLeft.getCurrentPosition());
