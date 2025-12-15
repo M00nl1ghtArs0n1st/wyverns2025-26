@@ -14,10 +14,7 @@ public class SixWheelAutoTest extends LinearOpMode {
     public void runOpMode() {
         robot = new RobotClass(hardwareMap);
         waitForStart();
-        retrieveTelemetry();
-//        moveWithEncoders(1900);
-        turnByAngle(45);
-
+        driveBasic(.5,.5,1500);
         //SCAN APRIL TAG LOSER
     }
 
@@ -52,10 +49,10 @@ public class SixWheelAutoTest extends LinearOpMode {
 
     public void retrieveTelemetry() {
         boolean controlHubData = true;
-        telemetry.addData("Back Left Motor Position", robot.backLeft.getCurrentPosition());
-        telemetry.addData("Back Right Motor Position", robot.backRight.getCurrentPosition());
-        telemetry.addData("Front Left Motor Position", robot.frontLeft.getCurrentPosition());
-        telemetry.addData("Front Right Motor Position", robot.frontRight.getCurrentPosition());
+//        telemetry.addData("Back Left Motor Position", robot.backLeft.getCurrentPosition());
+//        telemetry.addData("Back Right Motor Position", robot.backRight.getCurrentPosition());
+//        telemetry.addData("Front Left Motor Position", robot.frontLeft.getCurrentPosition());
+//        telemetry.addData("Front Right Motor Position", robot.frontRight.getCurrentPosition());
 //        telemetry.addData("Difference in Position", robot.backLeft.getCurrentPosition() - robot.backRight.getCurrentPosition());
         telemetry.addData("Robot Heading Angle", robot.getHeading());
         telemetry.addData("control hub updated?", controlHubData);
@@ -71,23 +68,23 @@ public class SixWheelAutoTest extends LinearOpMode {
         //finds how far the robot needs to go
         if (angle < 0) {
             driveFunction(-.375, .375); //sets initial motor powers
-            while (robot.getHeading() > (angle + 30)) {
+            while (robot.getHeading() < (angle + 30)) {
                 //empty like my soul
                 retrieveTelemetry();
             }//waits until the robot only needs to turn 30 more degrees
             driveFunction(-.25, .25); //robot slows down to be more accurate
-            while (robot.getHeading() > (angle + 5)) {
+            while (robot.getHeading() <  (angle + 5)) {
                 //EMPTY ON PURPOSE LOSER
                 retrieveTelemetry();
             }// waits for the robot to turn all the way
         } else {
             driveFunction(.375, -.375);// sets initial motor powers
-            while (robot.getHeading() < (angle -30)) {
+            while (robot.getHeading() > (angle -30)) {
                 retrieveTelemetry();
                 //do I have to say it again?
             } //waits until the robot only has to turn 30 more degrees
             driveFunction(.25, -.25); //robot slows to be more accurate
-            while (robot.getHeading() < (angle - 5)) {
+            while (robot.getHeading() > (angle - 5)) {
                 retrieveTelemetry();
                 //EMPTY ON PURPOSE EVEN WORSE LOSER
             } //waits for the robot to turn to the specified angle

@@ -21,10 +21,10 @@ public class SixWheelDrive extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         //hardware mapping from driver hub
         robot = new RobotClass(hardwareMap);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
@@ -44,14 +44,17 @@ public class SixWheelDrive extends LinearOpMode{
             double tankRight = +gamepad1.right_stick_y;
             double arcadeTurn = gamepad1.right_stick_x;
             //this seems useless, but if you need to reverse a control, you can just add "-" before the reference
-//            boolean intakeStart = gamepad2.left_bumper;
+            boolean intakeStart = gamepad2.left_bumper;
             double flywheelStart = gamepad2.right_trigger;
+            boolean intakeBack= gamepad2.right_bumper;
             boolean threeProngStart = gamepad2.b;
-//            if (intakeStart) {
-//                robot.intakeMotor.setPower(.5);
-//            } else {
-//                robot.intakeMotor.setPower(0);
-//            }
+            if (intakeStart) {
+                robot.intakeMotor.setPower(1);
+            } else if(intakeBack) {
+                robot.intakeMotor.setPower(-1);
+            } else {
+                robot.intakeMotor.setPower(0);
+            }
             if (threeProngStart) {
                 robot.flywheelServo.setPower(1);
             } else {

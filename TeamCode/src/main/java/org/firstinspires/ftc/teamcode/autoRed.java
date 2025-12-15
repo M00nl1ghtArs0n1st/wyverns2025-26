@@ -113,7 +113,7 @@ public class autoRed extends LinearOpMode {
                 turnByAngle(45);
                 //shootArtifacts();
                 turnByAngle(-45);
-        }
+            }
     }
 
 
