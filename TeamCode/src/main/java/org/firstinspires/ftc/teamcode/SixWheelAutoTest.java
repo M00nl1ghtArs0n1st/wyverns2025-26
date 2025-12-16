@@ -14,8 +14,10 @@ public class SixWheelAutoTest extends LinearOpMode {
     public void runOpMode() {
         robot = new RobotClass(hardwareMap);
         waitForStart();
-        driveBasic(.5,.5,1500);
-        //SCAN APRIL TAG LOSER
+        moveWithEncoders(1500);
+        //SCAN APRILTAG LOSER
+        turnByAngle(-45);
+        //shoot
     }
 
     public void driveBasic(double left, double right, long time /* long variable type is really big so its for time-based purposes */) { //left: left side power, right: right side power, time: for how long
@@ -68,23 +70,23 @@ public class SixWheelAutoTest extends LinearOpMode {
         //finds how far the robot needs to go
         if (angle < 0) {
             driveFunction(-.375, .375); //sets initial motor powers
-            while (robot.getHeading() < (angle + 30)) {
+            while (robot.getHeading() < -(angle + 30)) {
                 //empty like my soul
                 retrieveTelemetry();
             }//waits until the robot only needs to turn 30 more degrees
             driveFunction(-.25, .25); //robot slows down to be more accurate
-            while (robot.getHeading() <  (angle + 5)) {
+            while (robot.getHeading() <  -(angle + 5)) {
                 //EMPTY ON PURPOSE LOSER
                 retrieveTelemetry();
             }// waits for the robot to turn all the way
         } else {
             driveFunction(.375, -.375);// sets initial motor powers
-            while (robot.getHeading() > (angle -30)) {
+            while (robot.getHeading() > -(angle -30)) {
                 retrieveTelemetry();
                 //do I have to say it again?
-            } //waits until the robot only has to turn 30 more degrees
+            } //waits until the robot only has to tu``rn 30 more degrees
             driveFunction(.25, -.25); //robot slows to be more accurate
-            while (robot.getHeading() > (angle - 5)) {
+            while (robot.getHeading() > -(angle - 5)) {
                 retrieveTelemetry();
                 //EMPTY ON PURPOSE EVEN WORSE LOSER
             } //waits for the robot to turn to the specified angle
@@ -181,10 +183,6 @@ public class SixWheelAutoTest extends LinearOpMode {
 //        robot.flywheelServo.setPower(0);
 //        robot.flywheelMotor.setVelocity(0);
 //    }
-//    public void intakeArtifact() {
-//        double CPR = 28 * (29/860);
-//        double TPS = (175/60) * CPR;
-//        robot.intakeMotor.setVelocity(TPS);
 //    }
 //    public void stopIntake() {
 //        robot.intakeMotor.setVelocity(0);

@@ -44,23 +44,14 @@ public class SixWheelDrive extends LinearOpMode{
             double tankRight = +gamepad1.right_stick_y;
             double arcadeTurn = gamepad1.right_stick_x;
             //this seems useless, but if you need to reverse a control, you can just add "-" before the reference
-            boolean intakeStart = gamepad2.left_bumper;
             double flywheelStart = gamepad2.right_trigger;
-            boolean intakeBack= gamepad2.right_bumper;
             boolean threeProngStart = gamepad2.b;
-            if (intakeStart) {
-                robot.intakeMotor.setPower(1);
-            } else if(intakeBack) {
-                robot.intakeMotor.setPower(-1);
-            } else {
-                robot.intakeMotor.setPower(0);//sdddd
-            }
-            if (threeProngStart) {
-                robot.flywheelServo.setPower(1);
-            } else {
-                robot.flywheelServo.setPower(0);
-            }
-            robot.flywheelMotor.setPower(flywheelStart * .5);
+//            if (threeProngStart) {
+//                robot.flywheelServo.setPower(1);
+//            } else {
+//                robot.flywheelServo.setPower(0);
+//            }
+//            robot.flywheelMotor.setPower(flywheelStart * .5);
             if (usingTankDrive) {
                 //left side
                 robot.frontLeft.setPower(tankLeft);

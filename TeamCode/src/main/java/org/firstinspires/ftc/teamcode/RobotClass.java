@@ -19,8 +19,8 @@ import com.qualcomm.hardware.limelightvision.LLStatus;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 public class RobotClass {
-        public DcMotorEx frontLeft, frontRight, backRight, backLeft, intakeMotor, flywheelMotor ;
-        public CRServo flywheelServo;
+        public DcMotorEx frontLeft, frontRight, backRight, backLeft/* intakeMotor*/ ;
+//        public CRServo flywheelServo;
         public IMU imu;
         public Telemetry telemetry;
 //        public Limelight3A limelight;
@@ -31,9 +31,8 @@ public class RobotClass {
             // configures your robot so that the program can interact with it
 //            limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
-            intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
-            flywheelMotor = hardwareMap.get(DcMotorEx.class, "flywheelMotor");
-            flywheelServo = hardwareMap.get(CRServo.class, "flywheelServo");
+//            flywheelMotor = hardwareMap.get(DcMotorEx.class, "flywheelMotor");
+//            flywheelServo = hardwareMap.get(CRServo.class, "flywheelServo");
 
             frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
             frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
@@ -44,16 +43,15 @@ public class RobotClass {
 
 
             // robot configuration for test chassis
-            intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-            flywheelMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-            flywheelServo.setDirection(CRServo.Direction.FORWARD);
+//
+//            flywheelMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+//            flywheelServo.setDirection(CRServo.Direction.FORWARD);
 
             backLeft.setDirection(DcMotorSimple.Direction.FORWARD); //sixWheelPracticeBot FORWARD
             frontLeft.setDirection(DcMotorSimple.Direction.FORWARD); //sixWheelPracticeBot FORWARD
             backRight.setDirection(DcMotorSimple.Direction.REVERSE); //sixWheelPracticeBot REVERSE
             frontRight.setDirection(DcMotorSimple.Direction.REVERSE); //sixWheelPracticeBot REVERSE
 
-//            intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 //            flywheelMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
 //            frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); //STOP_AND RESET
@@ -61,8 +59,7 @@ public class RobotClass {
 //            backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 //            backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); //With just back medium amount to the right, with just front slightly to left, with all of them a lot to the left
 
-            intakeMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-            flywheelMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+//            flywheelMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
             frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
             frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
@@ -78,8 +75,8 @@ public class RobotClass {
             imu = hardwareMap.get(IMU.class, "imu");
             // Adjust the orientation parameters to match your robot
             IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                    RevHubOrientationOnRobot.LogoFacingDirection.LEFT,//six wheel up //real bot left
-                    RevHubOrientationOnRobot.UsbFacingDirection.UP));//six wheel backward //real bot up
+                    RevHubOrientationOnRobot.LogoFacingDirection.UP,//six wheel up //real bot left
+                    RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));//six wheel backward //real bot up
             // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
             imu.initialize(parameters);
             imu.resetYaw();
