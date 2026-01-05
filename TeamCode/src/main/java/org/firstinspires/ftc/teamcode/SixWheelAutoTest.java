@@ -174,18 +174,14 @@ public class SixWheelAutoTest extends LinearOpMode {
 //        }
         driveStop();
 //    public void shootArtifacts() {
-//        double CPR = 28 * (1/20);
-//        double TPS = (175/60) * CPR;
-//        robot.flywheelMotor.setVelocity(TPS);
 //        sleep(3000); //flywheel get to speed
 //        robot.flywheelServo.setPower(.5);
 //        sleep(1000); //wait for shooting to happen loser
 //        robot.flywheelServo.setPower(0);
-//        robot.flywheelMotor.setVelocity(0);
-//    }
+//
 //    }
 //    public void stopIntake() {
-//        robot.intakeMotor.setVelocity(0);
+
 //    }
     }
 }

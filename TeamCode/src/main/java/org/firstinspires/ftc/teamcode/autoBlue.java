@@ -20,10 +20,9 @@ public class autoBlue extends LinearOpMode {
         robot = new RobotClass(hardwareMap);
         robot.imu.resetYaw();
         waitForStart();
-        moveWithEncoders(1500);//102 inch
-        moveWithEncoders(1500);
+        moveWithEncoders(2200);//102 inch
         //SCAN APRILTAG LOSER
-        turnByAngle(-45);
+        turnByAngle(-57);
         //shoot
 
 
@@ -84,13 +83,13 @@ public class autoBlue extends LinearOpMode {
                 retrieveTelemetry();
             }//waits until the robot only needs to turn 30 more degrees
             driveFunction(-.25, .25); //robot slows down to be more accurate
-            while (robot.getHeading() < -(angle + 5)) {
+            while (robot.getHeading() <  -(angle + 5)) {
                 //EMPTY ON PURPOSE LOSER
                 retrieveTelemetry();
             }// waits for the robot to turn all the way
         } else {
             driveFunction(.375, -.375);// sets initial motor powers
-            while (robot.getHeading() > -(angle - 30)) {
+            while (robot.getHeading() > -(angle -30)) {
                 retrieveTelemetry();
                 //do I have to say it again?
             } //waits until the robot only has to tu``rn 30 more degrees
@@ -182,19 +181,14 @@ public class autoBlue extends LinearOpMode {
 //            turnByAngle(angle);
 //        }
         driveStop();
-//    public void shootArtifacts() {
-//        double CPR = 28 * (1/20);
-//        double TPS = (175/60) * CPR;
-//        robot.flywheelMotor.setVelocity(TPS);
+//     public void shootArtifacts() {
 //        sleep(3000); //flywheel get to speed
 //        robot.flywheelServo.setPower(.5);
 //        sleep(1000); //wait for shooting to happen loser
 //        robot.flywheelServo.setPower(0);
-//        robot.flywheelMotor.setVelocity(0);
-//    }
+//
 //    }
 //    public void stopIntake() {
-//        robot.intakeMotor.setVelocity(0);
 //    }
     }
 }
