@@ -89,3 +89,4 @@ public class RobotClass {
 // TO DO
 //FRONT RIGHT MOTOR MAIN ISSUE, FIX OR DIE
 // LIMELIGHT DOCUMENTATION LOSERS https://docs.limelightvision.io/docs/docs-limelight/apis/ftc-programming
+// VELOCITY STUFF LOSERS https://docs.revrobotics.com/duo-control/hello-robot-java/part-3/autonomous-navigation-onbot/setting-velocity
