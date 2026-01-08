@@ -60,7 +60,7 @@ public class SixWheelDrive extends LinearOpMode{
             } else {
                 robot.flywheelServo.setPower(0);
             }
-            robot.flywheelMotor.setPower(flywheelStart);
+            robot.flywheelMotor.setPower(flywheelStart);//boo
             if (usingTankDrive) {
                 //left side
                 robot.frontLeft.setPower(tankLeft);
