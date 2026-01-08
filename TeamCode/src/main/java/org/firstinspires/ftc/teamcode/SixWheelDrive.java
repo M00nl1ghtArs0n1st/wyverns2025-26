@@ -21,10 +21,10 @@ public class SixWheelDrive extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         //hardware mapping from driver hub
         robot = new RobotClass(hardwareMap);
-//        robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-//        robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-//        robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-//        robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
@@ -46,12 +46,21 @@ public class SixWheelDrive extends LinearOpMode{
             //this seems useless, but if you need to reverse a control, you can just add "-" before the reference
             double flywheelStart = gamepad2.right_trigger;
             boolean threeProngStart = gamepad2.b;
-//            if (threeProngStart) {
-//                robot.flywheelServo.setPower(1);
-//            } else {
-//                robot.flywheelServo.setPower(0);
-//            }
-//            robot.flywheelMotor.setPower(flywheelStart * .5);
+            boolean intakeForward = gamepad2.right_bumper;
+            boolean intakeBackward = gamepad2.left_bumper;
+            if (intakeForward) {
+                robot.intakeMotor.setPower(.3);
+            } else if (intakeBackward) {
+                robot.intakeMotor.setPower(-.3);
+            } else {
+                robot.intakeMotor.setPower(0);
+            }
+            if (threeProngStart) {
+                robot.flywheelServo.setPower(1);
+            } else {
+                robot.flywheelServo.setPower(0);
+            }
+            robot.flywheelMotor.setPower(flywheelStart);
             if (usingTankDrive) {
                 //left side
                 robot.frontLeft.setPower(tankLeft);

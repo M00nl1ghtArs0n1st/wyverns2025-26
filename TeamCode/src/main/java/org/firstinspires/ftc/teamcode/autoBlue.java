@@ -59,22 +59,21 @@ public class autoBlue extends LinearOpMode {
 
     public void retrieveTelemetry() {
         boolean controlHubData = true;
-//        telemetry.addData("Back Left Motor Position", robot.backLeft.getCurrentPosition());
-//        telemetry.addData("Back Right Motor Position", robot.backRight.getCurrentPosition());
-//        telemetry.addData("Front Left Motor Position", robot.frontLeft.getCurrentPosition());
-//        telemetry.addData("Front Right Motor Position", robot.frontRight.getCurrentPosition());
-//        telemetry.addData("Difference in Position", robot.backLeft.getCurrentPosition() - robot.backRight.getCurrentPosition());
+        telemetry.addData("Back Left Motor Position", robot.backLeft.getCurrentPosition());
+        telemetry.addData("Back Right Motor Position", robot.backRight.getCurrentPosition());
+        telemetry.addData("Front Left Motor Position", robot.frontLeft.getCurrentPosition());
+        telemetry.addData("Front Right Motor Position", robot.frontRight.getCurrentPosition());
+        telemetry.addData("Difference in Position", robot.backLeft.getCurrentPosition() - robot.backRight.getCurrentPosition());
         telemetry.addData("Robot Heading Angle", robot.getHeading());
         telemetry.addData("control hub updated?", controlHubData);
         telemetry.update();
     }
 
     public void turnByAngle(double angle) {
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.imu.resetYaw();
+        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         //finds how far the robot needs to go
         if (angle < 0) {
             driveFunction(-.375, .375); //sets initial motor powers
@@ -113,10 +112,10 @@ public class autoBlue extends LinearOpMode {
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         double currentPosRight = robot.backRight.getCurrentPosition();
         double currentPosLeft = robot.backLeft.getCurrentPosition();
         double differencesInPos;

@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -19,8 +18,8 @@ import com.qualcomm.hardware.limelightvision.LLStatus;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 public class RobotClass {
-        public DcMotorEx frontLeft, frontRight, backRight, backLeft/* intakeMotor*/ ;
-//        public CRServo flywheelServo;
+        public DcMotorEx frontLeft, frontRight, backRight, backLeft, flywheelMotor, intakeMotor ;
+        public CRServo flywheelServo;
         public IMU imu;
         public Telemetry telemetry;
 //        public Limelight3A limelight;
@@ -31,8 +30,9 @@ public class RobotClass {
             // configures your robot so that the program can interact with it
 //            limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
-//            flywheelMotor = hardwareMap.get(DcMotorEx.class, "flywheelMotor");
-//            flywheelServo = hardwareMap.get(CRServo.class, "flywheelServo");
+            flywheelMotor = hardwareMap.get(DcMotorEx.class, "flywheelMotor");
+            intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+            flywheelServo = hardwareMap.get(CRServo.class, "flywheelServo");
 
             frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
             frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
@@ -44,27 +44,28 @@ public class RobotClass {
 
             // robot configuration for test chassis
 //
-//            flywheelMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-//            flywheelServo.setDirection(CRServo.Direction.FORWARD);
+            flywheelMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            flywheelServo.setDirection(CRServo.Direction.FORWARD);
+            intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
             backLeft.setDirection(DcMotorSimple.Direction.FORWARD); //sixWheelPracticeBot FORWARD
             frontLeft.setDirection(DcMotorSimple.Direction.FORWARD); //sixWheelPracticeBot FORWARD
             backRight.setDirection(DcMotorSimple.Direction.REVERSE); //sixWheelPracticeBot REVERSE
             frontRight.setDirection(DcMotorSimple.Direction.REVERSE); //sixWheelPracticeBot REVERSE
 
-//            flywheelMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            flywheelMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
-//            frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); //STOP_AND RESET
-//            frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-//            backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-//            backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); //With just back medium amount to the right, with just front slightly to left, with all of them a lot to the left
+            frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); //STOP_AND RESET
+            frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); //With just back medium amount to the right, with just front slightly to left, with all of them a lot to the left
 
-//            flywheelMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+            flywheelMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
-            frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-            frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-            backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-            backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+            frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
 //            backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //            backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
