@@ -20,9 +20,9 @@ public class autoRed extends LinearOpMode {
         robot = new RobotClass(hardwareMap);
         robot.imu.resetYaw();
         waitForStart();
-        moveWithEncoders(2200);//102 inch
-        //SCAN APRILTAG LOSER
-        turnByAngle(37);
+        moveWithEncoders(1750);
+        turnByAngle(45);
+
         //shoot
 
 
@@ -74,27 +74,26 @@ public class autoRed extends LinearOpMode {
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.imu.resetYaw();
         //finds how far the robot needs to go
         if (angle < 0) {
             driveFunction(-.375, .375); //sets initial motor powers
-            while (robot.getHeading() < -(angle + 30)) {
+            while (robot.getHeading() < angle + 30) {
                 //empty like my soul
                 retrieveTelemetry();
             }//waits until the robot only needs to turn 30 more degrees
             driveFunction(-.25, .25); //robot slows down to be more accurate
-            while (robot.getHeading() <  -(angle + 5)) {
+            while (robot.getHeading() <  angle + 5) {
                 //EMPTY ON PURPOSE LOSER
                 retrieveTelemetry();
             }// waits for the robot to turn all the way
         } else {
             driveFunction(.375, -.375);// sets initial motor powers
-            while (robot.getHeading() > -(angle -30)) {
+            while (robot.getHeading() > angle -30) {
                 retrieveTelemetry();
                 //do I have to say it again?
-            } //waits until the robot only has to tu``rn 30 more degrees
+            } //waits until the robot only has to turn 30 more degrees
             driveFunction(.25, -.25); //robot slows to be more accurate
-            while (robot.getHeading() > -(angle - 5)) {
+            while (robot.getHeading() > angle -5) {
                 retrieveTelemetry();
                 //EMPTY ON PURPOSE EVEN WORSE LOSER
             } //waits for the robot to turn to the specified angle
@@ -181,13 +180,21 @@ public class autoRed extends LinearOpMode {
 //            turnByAngle(angle);
 //        }
         driveStop();
-//    public void shootArtifacts() {
-//        sleep(3000); //flywheel get to speed
-//        robot.flywheelServo.setPower(.5);
-//        sleep(1000); //wait for shooting to happen loser
-//        robot.flywheelServo.setPower(0);
-//
-//    }
-//    public void stopIntake() {
+    }
+    public void shootArtifacts(long amountOfArtifacts) {
+        robot.flywheelMotor.setPower(.5);
+        sleep(3000); //flywheel get to speed
+        robot.flywheelServo.setPower(.5);
+        sleep(3000); //wait for shooting to happen loser
+        robot.flywheelServo.setPower(0);
+        amountOfArtifacts = amountOfArtifacts - 1;
+        while (amountOfArtifacts != 0) {
+            sleep(1000);
+            robot.flywheelServo.setPower(.5);
+            sleep(3000);
+            robot.flywheelServo.setPower(0);
+            amountOfArtifacts = amountOfArtifacts - 1;
+        }
+        robot.flywheelMotor.setPower(0);
     }
 }
