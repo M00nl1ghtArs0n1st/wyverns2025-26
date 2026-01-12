@@ -44,10 +44,10 @@ public class SixWheelDrive extends LinearOpMode{
             double tankRight = +gamepad1.right_stick_y;
             double arcadeTurn = gamepad1.right_stick_x;
             //this seems useless, but if you need to reverse a control, you can just add "-" before the reference
-            double flywheelStart = gamepad2.right_trigger;
             boolean threeProngStart = gamepad2.b;
             boolean intakeForward = gamepad2.right_bumper;
             boolean intakeBackward = gamepad2.left_bumper;
+            double flywheelStart = gamepad2.right_trigger;
             if (intakeForward) {
                 robot.intakeMotor.setPower(.3);
             } else if (intakeBackward) {
@@ -60,7 +60,7 @@ public class SixWheelDrive extends LinearOpMode{
             } else {
                 robot.flywheelServo.setPower(0);
             }
-            robot.flywheelMotor.setPower(flywheelStart * .5);//boo
+            robot.flywheelMotor.setPower(flywheelStart * .7);//boo
             if (usingTankDrive) {
                 //left side
                 robot.frontLeft.setPower(tankLeft);
@@ -79,6 +79,7 @@ public class SixWheelDrive extends LinearOpMode{
     }
     public void retrieveTelemetry() {
         boolean controlHubData = true;
+        double flywheelStart = gamepad2.right_trigger * .685;
         telemetry.addData("Back Left Motor Position", robot.backLeft.getCurrentPosition());
         telemetry.addData("Back Right Motor Position", robot.backRight.getCurrentPosition());
         telemetry.addData("Front Left Motor Position", robot.frontLeft.getCurrentPosition());
@@ -86,6 +87,7 @@ public class SixWheelDrive extends LinearOpMode{
 //        telemetry.addData("Difference in Position", robot.backLeft.getCurrentPosition() - robot.backRight.getCurrentPosition());
         telemetry.addData("Robot Heading Angle", robot.getHeading());
         telemetry.addData("control hub updated?", controlHubData);
+        telemetry.addData("Flywheel Power", flywheelStart);
         telemetry.update();
     }
 }
