@@ -62,6 +62,7 @@ public class RobotClass {
             backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); //With just back medium amount to the right, with just front slightly to left, with all of them a lot to the left
 
             flywheelMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+            intakeMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
             frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
             frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
