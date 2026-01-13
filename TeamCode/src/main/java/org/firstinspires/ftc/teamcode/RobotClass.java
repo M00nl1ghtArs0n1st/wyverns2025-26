@@ -54,6 +54,7 @@ public class RobotClass {
             frontRight.setDirection(DcMotorSimple.Direction.REVERSE); //sixWheelPracticeBot REVERSE
 
             flywheelMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
             frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); //STOP_AND RESET
             frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -66,6 +67,7 @@ public class RobotClass {
             frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
             backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
             backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
 
 //            backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //            backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

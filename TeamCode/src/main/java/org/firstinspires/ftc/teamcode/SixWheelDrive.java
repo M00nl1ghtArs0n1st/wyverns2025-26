@@ -20,15 +20,24 @@ public class SixWheelDrive extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
         //hardware mapping from driver hub
+        // max rpm for flywheel 6000 RPM
         robot = new RobotClass(hardwareMap);
+
+
         robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        robot.intakeMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        double CPR =28; //Counts per revolution
+        double driveGearReduction = 20;
+        double wheelCircumference= 101.6 * 3.14;//4 inches loser
+        double CPW = CPR * driveGearReduction; // counts per wheel
         robot.imu.resetYaw();
 
         // Put stuff here you want to do after "init", before "play"
@@ -39,6 +48,8 @@ public class SixWheelDrive extends LinearOpMode{
         while (!isStopRequested()) { //program wouldnt start without this
             //gamepad1: driver gamepad
             //gamepad2: tools gamepad
+            double targetRPM = 5500 * gamepad2.right_trigger; //actual 6000
+            double TPS = (targetRPM / 60) * CPW;
             retrieveTelemetry();
             double tankLeft = -gamepad1.left_stick_y; // will also be used for arcade controls (would be called arcadeForward)
             double tankRight = +gamepad1.right_stick_y;
@@ -47,10 +58,9 @@ public class SixWheelDrive extends LinearOpMode{
             boolean threeProngStart = gamepad2.b;
             boolean intakeForward = gamepad2.right_bumper;
             boolean intakeBackward = gamepad2.left_bumper;
-            double flywheelStart = gamepad2.right_trigger;
-            if (intakeForward) {
+            if (intakeForward &&robot.intakeMotor.getCurrentPosition() > -390 ) {
                 robot.intakeMotor.setPower(.3);
-            } else if (intakeBackward) {
+            } else if (intakeBackward && robot.intakeMotor.getCurrentPosition() <5 ) {
                 robot.intakeMotor.setPower(-.3);
             } else {
                 robot.intakeMotor.setPower(0);
@@ -60,7 +70,7 @@ public class SixWheelDrive extends LinearOpMode{
             } else {
                 robot.flywheelServo.setPower(0);
             }
-            robot.flywheelMotor.setPower(flywheelStart * .7);//boo
+            robot.flywheelMotor.setVelocity(TPS);
             if (usingTankDrive) {
                 //left side
                 robot.frontLeft.setPower(tankLeft);
@@ -88,6 +98,8 @@ public class SixWheelDrive extends LinearOpMode{
         telemetry.addData("Robot Heading Angle", robot.getHeading());
         telemetry.addData("control hub updated?", controlHubData);
         telemetry.addData("Flywheel Power", flywheelStart);
+        telemetry.addData("Intake Position", robot.intakeMotor.getCurrentPosition());
         telemetry.update();
     }
 }
+//
