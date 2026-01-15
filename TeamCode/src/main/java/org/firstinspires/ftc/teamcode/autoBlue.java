@@ -184,7 +184,12 @@ public class autoBlue extends LinearOpMode {
         driveStop();
     }
      public void shootArtifacts(long amountOfArtifacts) {
-        robot.flywheelMotor.setPower(.5);
+         double CPR =28; //Counts per revolution
+         double driveGearReduction = 1;
+         double CPW = CPR * driveGearReduction; // counts per wheel
+         double targetRPM = 2000;
+         double TPS = (targetRPM/ 60) * CPW;
+        robot.flywheelMotor.setVelocity(TPS);
          sleep(3000); //flywheel get to speed
          robot.flywheelServo.setPower(.5);
          sleep(3000); //wait for shooting to happen loser
@@ -197,6 +202,6 @@ public class autoBlue extends LinearOpMode {
              robot.flywheelServo.setPower(0);
              amountOfArtifacts = amountOfArtifacts - 1;
          }
-         robot.flywheelMotor.setPower(0);
+         robot.flywheelMotor.setVelocity(0);
      }
 }

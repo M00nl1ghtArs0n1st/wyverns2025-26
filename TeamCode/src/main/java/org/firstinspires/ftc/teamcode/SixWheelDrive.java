@@ -35,8 +35,7 @@ public class SixWheelDrive extends LinearOpMode{
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.intakeMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         double CPR =28; //Counts per revolution
-        double driveGearReduction = 20;
-        double wheelCircumference= 101.6 * 3.14;//4 inches loser
+        double driveGearReduction = 1;
         double CPW = CPR * driveGearReduction; // counts per wheel
         robot.imu.resetYaw();
 
@@ -48,8 +47,13 @@ public class SixWheelDrive extends LinearOpMode{
         while (!isStopRequested()) { //program wouldnt start without this
             //gamepad1: driver gamepad
             //gamepad2: tools gamepad
-            double targetRPM = 5500 * gamepad2.right_trigger; //actual 6000
-            double TPS = (targetRPM / 60) * CPW;
+            double targetRPMFar = 3200* gamepad2.right_trigger; //actual 6000
+            double targetRPMClose = 2710 * gamepad2.left_trigger;
+            telemetry.addData("Flywheel Power", targetRPMFar);
+            double TPSFar = (targetRPMFar/ 60) * CPW;
+            double TPSClose = (targetRPMClose/ 60) * CPW;
+            double targetRPMDislodge = -6000;
+            double TPSDislodge = (targetRPMDislodge/ 60) * CPW;
             retrieveTelemetry();
             double tankLeft = -gamepad1.left_stick_y; // will also be used for arcade controls (would be called arcadeForward)
             double tankRight = +gamepad1.right_stick_y;
@@ -58,9 +62,10 @@ public class SixWheelDrive extends LinearOpMode{
             boolean threeProngStart = gamepad2.b;
             boolean intakeForward = gamepad2.right_bumper;
             boolean intakeBackward = gamepad2.left_bumper;
-            if (intakeForward &&robot.intakeMotor.getCurrentPosition() > -390 ) {
+            boolean flywheelBack = gamepad2.x;
+            if (intakeForward ) {
                 robot.intakeMotor.setPower(.3);
-            } else if (intakeBackward && robot.intakeMotor.getCurrentPosition() <5 ) {
+            } else if (intakeBackward) {
                 robot.intakeMotor.setPower(-.3);
             } else {
                 robot.intakeMotor.setPower(0);
@@ -70,7 +75,16 @@ public class SixWheelDrive extends LinearOpMode{
             } else {
                 robot.flywheelServo.setPower(0);
             }
-            robot.flywheelMotor.setVelocity(TPS);
+            if (gamepad2.right_trigger > 0){
+                robot.flywheelMotor.setVelocity(TPSFar);
+            } else if (gamepad2.left_trigger > 0){
+                robot.flywheelMotor.setVelocity(TPSClose);
+            } else if (gamepad2.x) {
+                robot.flywheelMotor.setVelocity(TPSDislodge);
+            } else {
+                robot.flywheelMotor.setVelocity(0);
+            }
+
             if (usingTankDrive) {
                 //left side
                 robot.frontLeft.setPower(tankLeft);
@@ -88,7 +102,7 @@ public class SixWheelDrive extends LinearOpMode{
         }
     }
     public void retrieveTelemetry() {
-        boolean controlHubData = true;
+        boolean controlHubData = false;
         double flywheelStart = gamepad2.right_trigger * .685;
         telemetry.addData("Back Left Motor Position", robot.backLeft.getCurrentPosition());
         telemetry.addData("Back Right Motor Position", robot.backRight.getCurrentPosition());
@@ -97,7 +111,7 @@ public class SixWheelDrive extends LinearOpMode{
 //        telemetry.addData("Difference in Position", robot.backLeft.getCurrentPosition() - robot.backRight.getCurrentPosition());
         telemetry.addData("Robot Heading Angle", robot.getHeading());
         telemetry.addData("control hub updated?", controlHubData);
-        telemetry.addData("Flywheel Power", flywheelStart);
+        telemetry.addData("flywheel intput", gamepad2.right_trigger);
         telemetry.addData("Intake Position", robot.intakeMotor.getCurrentPosition());
         telemetry.update();
     }
