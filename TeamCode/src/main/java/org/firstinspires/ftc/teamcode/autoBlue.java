@@ -22,14 +22,9 @@ public class autoBlue extends LinearOpMode {
 //        robot.limelight.setPollRateHz(100); // This sets how often we ask Limelight for data (100 times per second)
 //        robot.limelight.start();
         waitForStart();
-//        moveWithEncoders(2200);//102 inch
-//        //SCAN APRILTAG LOSER
-//        turnByAngle(-57);
-//        //shoot
-        moveWithEncoders(1750);
+        moveWithEncoders(500);
         turnByAngle(-45);
-
-
+//        shootArtifacts(2);
     }
 
     public void driveBasic(double left, double right, long time /* long variable type is really big so its for time-based purposes */) { //left: left side power, right: right side power, time: for how long
