@@ -29,6 +29,8 @@ public class RobotClass {
 
             // configures your robot so that the program can interact with it
 //            limelight = hardwareMap.get(Limelight3A.class, "limelight");
+//            limelight.setPollRateHz(100); // This sets how often we ask Limelight for data (100 times per second)
+//            limelight.start();
 
             flywheelMotor = hardwareMap.get(DcMotorEx.class, "flywheelMotor");
             intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
@@ -94,4 +96,3 @@ public class RobotClass {
 //FRONT RIGHT MOTOR MAIN ISSUE, FIX OR DIE
 // LIMELIGHT DOCUMENTATION LOSERS https://docs.limelightvision.io/docs/docs-limelight/apis/ftc-programming
 // VELOCITY STUFF LOSERS https://docs.revrobotics.com/duo-control/hello-robot-java/part-3/autonomous-navigation-onbot/setting-velocity
-// encoder intake por favor! (make sure it always starts at the same spot)

@@ -47,13 +47,11 @@ public class SixWheelDrive extends LinearOpMode{
         while (!isStopRequested()) { //program wouldnt start without this
             //gamepad1: driver gamepad
             //gamepad2: tools gamepad
-            double targetRPMFar = 3200* gamepad2.right_trigger; //actual 6000
-            double targetRPMClose = 2710 * gamepad2.left_trigger;
+            double targetRPMFar = 3150* gamepad2.right_trigger; //actual 6000
+            double targetRPMClose = 2650 * gamepad2.left_trigger;
             telemetry.addData("Flywheel Power", targetRPMFar);
             double TPSFar = (targetRPMFar/ 60) * CPW;
             double TPSClose = (targetRPMClose/ 60) * CPW;
-            double targetRPMDislodge = -6000;
-            double TPSDislodge = (targetRPMDislodge/ 60) * CPW;
             retrieveTelemetry();
             double tankLeft = -gamepad1.left_stick_y; // will also be used for arcade controls (would be called arcadeForward)
             double tankRight = +gamepad1.right_stick_y;
@@ -79,8 +77,6 @@ public class SixWheelDrive extends LinearOpMode{
                 robot.flywheelMotor.setVelocity(TPSFar);
             } else if (gamepad2.left_trigger > 0){
                 robot.flywheelMotor.setVelocity(TPSClose);
-            } else if (gamepad2.x) {
-                robot.flywheelMotor.setVelocity(TPSDislodge);
             } else {
                 robot.flywheelMotor.setVelocity(0);
             }
@@ -111,8 +107,10 @@ public class SixWheelDrive extends LinearOpMode{
 //        telemetry.addData("Difference in Position", robot.backLeft.getCurrentPosition() - robot.backRight.getCurrentPosition());
         telemetry.addData("Robot Heading Angle", robot.getHeading());
         telemetry.addData("control hub updated?", controlHubData);
-        telemetry.addData("flywheel intput", gamepad2.right_trigger);
+        telemetry.addData("flywheel input", gamepad2.right_trigger);
         telemetry.addData("Intake Position", robot.intakeMotor.getCurrentPosition());
+        telemetry.addData("Right trigger", gamepad2.right_trigger);
+        telemetry.addData("left trigger", gamepad2.left_trigger);
         telemetry.update();
     }
 }

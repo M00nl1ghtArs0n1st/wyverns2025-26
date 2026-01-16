@@ -19,6 +19,8 @@ public class autoBlue extends LinearOpMode {
     public void runOpMode() {
         robot = new RobotClass(hardwareMap);
         robot.imu.resetYaw();
+//        robot.limelight.setPollRateHz(100); // This sets how often we ask Limelight for data (100 times per second)
+//        robot.limelight.start();
         waitForStart();
 //        moveWithEncoders(2200);//102 inch
 //        //SCAN APRILTAG LOSER
