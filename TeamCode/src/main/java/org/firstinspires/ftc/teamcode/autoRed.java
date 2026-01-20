@@ -59,6 +59,7 @@ public class autoRed extends LinearOpMode {
 
     public void retrieveTelemetry() {
         boolean controlHubData = true;
+//        LLResult result = robot.limelight.getLatestResult();
         telemetry.addData("Back Left Motor Position", robot.backLeft.getCurrentPosition());
         telemetry.addData("Back Right Motor Position", robot.backRight.getCurrentPosition());
         telemetry.addData("Front Left Motor Position", robot.frontLeft.getCurrentPosition());
@@ -66,6 +67,11 @@ public class autoRed extends LinearOpMode {
         telemetry.addData("Difference in Position", robot.backLeft.getCurrentPosition() - robot.backRight.getCurrentPosition());
         telemetry.addData("Robot Heading Angle", robot.getHeading());
         telemetry.addData("control hub updated?", controlHubData);
+//        if (result.isValid()) {
+//            telemetry.addData("Target X", result.getTx()); //in degrees thats crazy
+//            telemetry.addData("Target Y", result.getTy()); //in degrees thats wild
+//            telemetry.addData("Target area", result.getTa()); //percentage from 0% to 100%
+//        }
         telemetry.update();
     }
 
@@ -121,7 +127,7 @@ public class autoRed extends LinearOpMode {
         double differencesInPos;
         if (position > 0) {
             driveFunction(.35, .35);//CHANGE BACK TO .35
-            while (/* currentPosRight < position - 100 && */ currentPosLeft < position - 100) {
+            while (currentPosRight < position - 100 && currentPosLeft < position - 100) {
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 currentPosRight = robot.backRight.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
@@ -134,7 +140,7 @@ public class autoRed extends LinearOpMode {
 //                }
             }
             driveFunction(.25, .25);//CHANGE BACK TO .25
-            while (/* currentPosRight < position - 50 && */  currentPosLeft < position - 50) {
+            while (currentPosRight < position - 50 && currentPosLeft < position - 50) {
                 currentPosRight = robot.backRight.getCurrentPosition();
                 currentPosLeft = robot.backLeft.getCurrentPosition();
                 differencesInPos = currentPosLeft - currentPosRight;
@@ -182,7 +188,45 @@ public class autoRed extends LinearOpMode {
         driveStop();
     }
     public void shootArtifacts(long amountOfArtifacts) {
-        robot.flywheelMotor.setPower(.5);
+//         LLResult result = robot.limelight.getLatestResult();
+        double CPR =28; //Counts per revolution
+        double driveGearReduction = 1;
+        double CPW = CPR * driveGearReduction; // counts per wheel
+        double targetRPM = 2000;
+        double TPS = (targetRPM/ 60) * CPW;
+//         double tx = result.getTx();
+//         double ty = result.getTy();
+//         double ta = result.getTa();
+//         while (tx > (farthest right target can be) && tx > (farthest left target can be) && too far away (too small target)< ta < too close(too large target)){
+//             while (tx > (farthest right target can be)){
+//                 retrieveTelemetry();
+//                 result = robot.limelight.getLatestResult();
+//                 ty = result.getTy();
+//                 tx = result.getTx();
+//                 driveFunction(.1,-.1);
+//             }
+//             while (tx > (farthest left target can be)){
+//                 retrieveTelemetry();
+//                 result = robot.limelight.getLatestResult();
+//                 ty = result.getTy();
+//                 tx = result.getTx();
+//                 driveFunction(-.1,.1);
+//             }
+//             while (too far away (too small target) < ta) {
+//                 retrieveTelemetry();
+//                 result = robot.limelight.getLatestResult();
+//                 ta = result.getTa();
+//                 driveFunction(.1,.1);
+//             }
+//             while (ta < too close(too large target)) {
+//                 retrieveTelemetry();
+//                 result = robot.limelight.getLatestResult();
+//                 ta = result.getTa();
+//                 driveFunction(-.1,-.1);
+//             }
+//         }
+        driveFunction(0,0);
+        robot.flywheelMotor.setVelocity(TPS);
         sleep(3000); //flywheel get to speed
         robot.flywheelServo.setPower(.5);
         sleep(3000); //wait for shooting to happen loser
@@ -195,6 +239,6 @@ public class autoRed extends LinearOpMode {
             robot.flywheelServo.setPower(0);
             amountOfArtifacts = amountOfArtifacts - 1;
         }
-        robot.flywheelMotor.setPower(0);
+        robot.flywheelMotor.setVelocity(0);
     }
 }

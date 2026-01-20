@@ -47,8 +47,8 @@ public class SixWheelDrive extends LinearOpMode{
         while (!isStopRequested()) { //program wouldnt start without this
             //gamepad1: driver gamepad
             //gamepad2: tools gamepad
-            double targetRPMFar = 3150* gamepad2.right_trigger; //actual 6000
-            double targetRPMClose = 2650 * gamepad2.left_trigger;
+            double targetRPMFar = 3100* gamepad2.right_trigger; //actual 6000
+            double targetRPMClose = 2600 * gamepad2.left_trigger;
             telemetry.addData("Flywheel Power", targetRPMFar);
             double TPSFar = (targetRPMFar/ 60) * CPW;
             double TPSClose = (targetRPMClose/ 60) * CPW;
