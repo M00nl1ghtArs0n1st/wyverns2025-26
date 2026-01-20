@@ -26,8 +26,8 @@ public class autoBlue extends LinearOpMode {
 //        robot.limelight.setPollRateHz(100); // This sets how often we ask Limelight for data (100 times per second)
 //        robot.limelight.start();
         waitForStart();
-        moveWithEncoders(500);
-        turnByAngle(-45);
+        moveWithEncoders(750);
+        turnByAngle(45);
 //        shootArtifacts(2);
     }
 
@@ -61,7 +61,7 @@ public class autoBlue extends LinearOpMode {
     } //stops all motors
 
     public void retrieveTelemetry() {
-        boolean controlHubData = true;
+        boolean controlHubData = false;
 //        LLResult result = robot.limelight.getLatestResult();
         telemetry.addData("Back Left Motor Position", robot.backLeft.getCurrentPosition());
         telemetry.addData("Back Right Motor Position", robot.backRight.getCurrentPosition());
@@ -86,23 +86,23 @@ public class autoBlue extends LinearOpMode {
         //finds how far the robot needs to go
         if (angle < 0) {
             driveFunction(-.375, .375); //sets initial motor powers
-            while (robot.getHeading() < angle + 30) {
+            while (robot.getHeading() < angle - 30) {
                 //empty like my soul
                 retrieveTelemetry();
             }//waits until the robot only needs to turn 30 more degrees
             driveFunction(-.25, .25); //robot slows down to be more accurate
-            while (robot.getHeading() <  angle + 5) {
+            while (robot.getHeading() <  angle - 5) {
                 //EMPTY ON PURPOSE LOSER
                 retrieveTelemetry();
             }// waits for the robot to turn all the way
         } else {
             driveFunction(.375, -.375);// sets initial motor powers
-            while (robot.getHeading() > angle -30) {
+            while (robot.getHeading() > angle +30) {
                 retrieveTelemetry();
                 //do I have to say it again?
             } //waits until the robot only has to turn 30 more degrees
             driveFunction(.25, -.25); //robot slows to be more accurate
-            while (robot.getHeading() > angle -5) {
+            while (robot.getHeading() > angle +5) {
                 retrieveTelemetry();
                 //EMPTY ON PURPOSE EVEN WORSE LOSER
             } //waits for the robot to turn to the specified angle
