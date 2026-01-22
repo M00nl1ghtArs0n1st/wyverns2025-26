@@ -46,7 +46,7 @@ public class SixWheelDrive extends LinearOpMode{
         waitForStart();
         while (!isStopRequested()) { //program wouldnt start without this
             //gamepad1: driver gamepad
-            //gamepad2: tools gamepad
+            //gamepad2: tools gamepad Constantlyrunning flywheel??? IDK I'm confused with human controls RIP
             double targetRPMFar = 3100* gamepad2.right_trigger; //actual 6000
             double targetRPMClose = 2600 * gamepad2.left_trigger;
             telemetry.addData("Flywheel Power", targetRPMFar);
@@ -60,8 +60,7 @@ public class SixWheelDrive extends LinearOpMode{
             boolean threeProngStart = gamepad2.b;
             boolean intakeForward = gamepad2.right_bumper;
             boolean intakeBackward = gamepad2.left_bumper;
-            boolean flywheelBack = gamepad2.x;
-            if (intakeForward ) {
+            if (intakeForward) {
                 robot.intakeMotor.setPower(.3);
             } else if (intakeBackward) {
                 robot.intakeMotor.setPower(-.3);
