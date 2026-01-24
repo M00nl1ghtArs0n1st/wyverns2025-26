@@ -27,23 +27,8 @@ public class autoBlue extends LinearOpMode {
 //        robot.limelight.start();
         waitForStart();
         moveWithEncoders(500);
-        turnByAngle(45);
-//        shootArtifacts(2);
-    }
-
-    public void driveBasic(double left, double right, long time /* long variable type is really big so its for time-based purposes */) { //left: left side power, right: right side power, time: for how long
-        //set all motor powers
-        robot.frontLeft.setPower(left);
-        robot.backLeft.setPower(left);
-        robot.frontRight.setPower(right);
-        robot.backRight.setPower(right);
-        retrieveTelemetry();
-        sleep(time); //wait for however long
-        //stop
-        robot.frontLeft.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backRight.setPower(0);
+        turnByAngle(-45);
+        //shootArtifacts(3);
     }
 
     public void driveFunction(double left, double right) {
@@ -114,8 +99,7 @@ public class autoBlue extends LinearOpMode {
 //        double CPR = 28 * (28); //counts per revolution 28 times gear ratio 20:1
 //        double circumference = Math.PI * 115;
 //        double countsPerMM = CPR / circumference;
-//        double leftPos = ((leftTarget/304.8) * countsPerMM);
-//        double rightPos =((rightTarget/304.8) * countsPerMM);
+//        double positionTicks = ((position/304.8) * countsPerMM);
         robot.imu.resetYaw();
         robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -125,78 +109,39 @@ public class autoBlue extends LinearOpMode {
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        double currentPosRight = robot.backRight.getCurrentPosition();
-        double currentPosLeft = robot.backLeft.getCurrentPosition();
-        double differencesInPos;
+        double currentPos = robot.backRight.getCurrentPosition();
         if (position > 0) {
             driveFunction(.35, .35);//CHANGE BACK TO .35
-            while (currentPosRight < position - 100 && currentPosLeft < position - 100) {
-                currentPosLeft = robot.backLeft.getCurrentPosition();
-                currentPosRight = robot.backRight.getCurrentPosition();
-                differencesInPos = currentPosLeft - currentPosRight;
+            while (currentPos < position - 100) {
+                currentPos = robot.backLeft.getCurrentPosition();
                 retrieveTelemetry();
-//                if (differencesInPos > 0) { // Left is greater
-//                    driveFunction(.34, .36);
-//                }
-//                if (differencesInPos < 0) { //Right is greater
-//                    driveFunction(.36, .34);
-//                }
             }
             driveFunction(.25, .25);//CHANGE BACK TO .25
-            while (currentPosRight < position - 50 && currentPosLeft < position - 50) {
-                currentPosRight = robot.backRight.getCurrentPosition();
-                currentPosLeft = robot.backLeft.getCurrentPosition();
-                differencesInPos = currentPosLeft - currentPosRight;
+            while (currentPos < position - 50) {
+                currentPos = robot.backLeft.getCurrentPosition();
                 retrieveTelemetry();
-//                if (differencesInPos >0) {
-//                    driveFunction(.34, .36);
-//                }
-//                if (differencesInPos < 0) {
-//                    driveFunction(.36, .34);
-//                }
             }
         } else {
-            driveFunction(-.4, -.4); //CHANGE BACK TO .4
-            while (/* currentPosRight > position + 100 && */currentPosLeft > position + 100) {
-                currentPosLeft = robot.backLeft.getCurrentPosition();
-                currentPosRight = robot.backRight.getCurrentPosition();
-                differencesInPos = currentPosLeft - currentPosRight;
+            driveFunction(-.35, -.35); //CHANGE BACK TO .4
+            while (currentPos > position + 100) {
+                currentPos = robot.backLeft.getCurrentPosition();
                 retrieveTelemetry();
-//                if (differencesInPos > 0) {
-//                    driveFunction(-.34, -.36);
-//                }
-//                if (differencesInPos < 0) {
-//                    driveFunction(-.36, -.34);
-//                }
             }
             driveFunction(-.25, -.25);//CHANGE BACK TO .3
-            while (/*currentPosRight > position + 50 && */currentPosLeft > position + 50) {
-                currentPosLeft = robot.backLeft.getCurrentPosition();
-                currentPosRight = robot.backRight.getCurrentPosition();
-                differencesInPos = currentPosLeft - currentPosRight;
+            while (currentPos > position + 50) {
+                currentPos = robot.backLeft.getCurrentPosition();
                 retrieveTelemetry();
-//                if (differencesInPos > 0) {
-//                    retrieveTelemetry();
-//                    driveFunction(-.24, -.26);
-//                }
-//                if (differencesInPos <0) {
-//                    driveFunction(-.24, -.26);
-//                }
             }
         }
-//        if (robot.getHeading() != 0) {
-//            double angle = -(robot.getHeading());
-//            turnByAngle(angle);
-//        }
         driveStop();
     }
-     public void shootArtifacts(long amountOfArtifacts) {
+    public void shootArtifacts(long amountOfArtifacts) {
 //         LLResult result = robot.limelight.getLatestResult();
-         double CPR =28; //Counts per revolution
-         double driveGearReduction = 1;
-         double CPW = CPR * driveGearReduction; // counts per wheel
-         double targetRPM = 2000;
-         double TPS = (targetRPM/ 60) * CPW;
+        double CPR =28; //Counts per revolution
+        double driveGearReduction = 1;
+        double CPW = CPR * driveGearReduction; // counts per wheel
+        double targetRPM = 2000;
+        double TPS = (targetRPM/ 60) * CPW;
 //         double tx = result.getTx();
 //         double ty = result.getTy();
 //         double ta = result.getTa();
@@ -228,20 +173,20 @@ public class autoBlue extends LinearOpMode {
 //                 driveFunction(-.1,-.1);
 //             }
 //         }
-         driveFunction(0,0);
+        driveFunction(0,0);
         robot.flywheelMotor.setVelocity(TPS);
-         sleep(3000); //flywheel get to speed
-         robot.flywheelServo.setPower(.5);
-         sleep(3000); //wait for shooting to happen loser
-         robot.flywheelServo.setPower(0);
-         amountOfArtifacts = amountOfArtifacts - 1;
-         while (amountOfArtifacts != 0) {
-             sleep(1000);
-             robot.flywheelServo.setPower(.5);
-             sleep(3000);
-             robot.flywheelServo.setPower(0);
-             amountOfArtifacts = amountOfArtifacts - 1;
-         }
-         robot.flywheelMotor.setVelocity(0);
-     }
+        sleep(3000); //flywheel get to speed
+        robot.flywheelServo.setPower(.5);
+        sleep(3000); //wait for shooting to happen loser
+        robot.flywheelServo.setPower(0);
+        amountOfArtifacts = amountOfArtifacts - 1;
+        while (amountOfArtifacts != 0) {
+            sleep(1000);
+            robot.flywheelServo.setPower(.5);
+            sleep(3000);
+            robot.flywheelServo.setPower(0);
+            amountOfArtifacts = amountOfArtifacts - 1;
+        }
+        robot.flywheelMotor.setVelocity(0);
+    }
 }

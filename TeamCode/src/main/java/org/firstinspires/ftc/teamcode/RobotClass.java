@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -58,10 +57,11 @@ public class RobotClass {
             flywheelMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
-            frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); //STOP_AND RESET
+            frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); //With just back medium amount to the right, with just front slightly to left, with all of them a lot to the left
+            backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            //"With just back medium amount to the right, with just front slightly to left, with all of them a lot to the left" what was I on?
 
             flywheelMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
             intakeMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
@@ -93,6 +93,6 @@ public class RobotClass {
     }
 }
 // TO DO
-//FRONT RIGHT MOTOR MAIN ISSUE, FIX OR DIE
+//FRONT RIGHT MOTOR MAIN ISSUE, FIX OR DIE (I choose death)
 // LIMELIGHT DOCUMENTATION LOSERS https://docs.limelightvision.io/docs/docs-limelight/apis/ftc-programming
 // VELOCITY STUFF LOSERS https://docs.revrobotics.com/duo-control/hello-robot-java/part-3/autonomous-navigation-onbot/setting-velocity
