@@ -26,10 +26,10 @@ public class SixWheelDrive extends LinearOpMode{
 
         robot.frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.intakeMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);

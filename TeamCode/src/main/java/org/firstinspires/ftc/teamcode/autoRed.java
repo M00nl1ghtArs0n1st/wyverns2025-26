@@ -18,7 +18,7 @@ public class autoRed extends LinearOpMode {
 //        robot.limelight.start();
         waitForStart();
         moveWithEncoders(1650);
-        sleep(2000);
+        sleep(1000);
         turnByAngle(43);
         sleep(500);
         shootArtifacts(2);
