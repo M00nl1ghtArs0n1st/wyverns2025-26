@@ -67,25 +67,30 @@ public class autoRed extends LinearOpMode {
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         //finds how far the robot needs to go
+        double currentAngle = robot.getHeading();
         if (angle < 0) {
             driveFunction(-.375, .375); //sets initial motor powers
-            while (robot.getHeading() < angle + 30) {
+            while (currentAngle < angle + 30) {
                 //empty like my soul
+                currentAngle = robot.getHeading();
                 retrieveTelemetry();
             }//waits until the robot only needs to turn 30 more degrees
             driveFunction(-.25, .25); //robot slows down to be more accurate
-            while (robot.getHeading() <  angle + 5) {
+            while (currentAngle<  angle + 5) {
                 //EMPTY ON PURPOSE LOSER
+                currentAngle = robot.getHeading();
                 retrieveTelemetry();
             }// waits for the robot to turn all the way
         } else {
             driveFunction(.375, -.375);// sets initial motor powers
-            while (robot.getHeading() > angle -30) {
+            while (currentAngle > angle -30) {
+                currentAngle = robot.getHeading();
                 retrieveTelemetry();
                 //do I have to say it again?
             } //waits until the robot only has to turn 30 more degrees
             driveFunction(.25, -.25); //robot slows to be more accurate
-            while (robot.getHeading() > angle -5) {
+            while (currentAngle > angle -5) {
+                currentAngle = robot.getHeading();
                 retrieveTelemetry();
                 //EMPTY ON PURPOSE EVEN WORSE LOSER
             } //waits for the robot to turn to the specified angle
