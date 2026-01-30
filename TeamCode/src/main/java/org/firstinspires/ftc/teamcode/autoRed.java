@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 
@@ -16,11 +17,11 @@ public class autoRed extends LinearOpMode {
 //        robot.limelight.setPollRateHz(100); // This sets how often we ask Limelight for data (100 times per second)
 //        robot.limelight.start();
         waitForStart();
-        moveWithEncoders(-780);
+        moveWithEncoders(1650);
         sleep(2000);
+        turnByAngle(43);
+        sleep(500);
         shootArtifacts(2);
-
-
     }
 
     public void driveFunction(double left, double right) {
@@ -56,10 +57,7 @@ public class autoRed extends LinearOpMode {
     }
 
     public void turnByAngle(double angle) {
-        robot.frontLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        robot.imu.resetYaw();
         //finds how far the robot needs to go
         double currentAngle = -robot.getHeading();
         if (angle < 0) {
@@ -70,7 +68,7 @@ public class autoRed extends LinearOpMode {
                 retrieveTelemetry();
             }//waits until the robot only needs to turn 30 more degrees
             driveFunction(-.15, .15); //robot slows down to be more accurate
-            while (currentAngle >  angle + 15) {
+            while (currentAngle >  angle + 5) {
                 //EMPTY ON PURPOSE LOSER
                 currentAngle = -robot.getHeading();
                 retrieveTelemetry();
@@ -83,7 +81,7 @@ public class autoRed extends LinearOpMode {
                 //do I have to say it again?
             } //waits until the robot only has to turn 30 more degrees
             driveFunction(.15, -.15); //robot slows to be more accurate
-            while (currentAngle <  angle -15) {
+            while (currentAngle < angle - 5) {
                 currentAngle = -robot.getHeading();
                 retrieveTelemetry();
                 //EMPTY ON PURPOSE EVEN WORSE LOSER
