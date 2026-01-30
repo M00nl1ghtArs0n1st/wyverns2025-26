@@ -1,18 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.content.ContentProviderResult;
-
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.IMU;
-import java.lang.Math;
-import com.qualcomm.hardware.limelightvision.LLResult;
-import com.qualcomm.hardware.limelightvision.LLResultTypes;
-import com.qualcomm.hardware.limelightvision.LLStatus;
-import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 
 @Autonomous
@@ -26,9 +16,11 @@ public class autoBlue extends LinearOpMode {
 //        robot.limelight.setPollRateHz(100); // This sets how often we ask Limelight for data (100 times per second)
 //        robot.limelight.start();
         waitForStart();
-        moveWithEncoders(500);
-        turnByAngle(-45);
-        //shootArtifacts(3);
+        moveWithEncoders(-780);
+        sleep(2000);
+        shootArtifacts(2);
+
+
     }
 
     public void driveFunction(double left, double right) {
@@ -69,30 +61,30 @@ public class autoBlue extends LinearOpMode {
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         //finds how far the robot needs to go
-        double currentAngle = robot.getHeading();
+        double currentAngle = -robot.getHeading();
         if (angle < 0) {
-            driveFunction(-.375, .375); //sets initial motor powers
-            while (currentAngle < angle + 30) {
+            driveFunction(-.25, .25); //sets initial motor powers
+            while (currentAngle > angle + 30) {
                 //empty like my soul
-                currentAngle = robot.getHeading();
+                currentAngle = -robot.getHeading();
                 retrieveTelemetry();
             }//waits until the robot only needs to turn 30 more degrees
-            driveFunction(-.25, .25); //robot slows down to be more accurate
-            while (currentAngle<  angle + 5) {
+            driveFunction(-.15, .15); //robot slows down to be more accurate
+            while (currentAngle >  angle + 15) {
                 //EMPTY ON PURPOSE LOSER
-                currentAngle = robot.getHeading();
+                currentAngle = -robot.getHeading();
                 retrieveTelemetry();
             }// waits for the robot to turn all the way
         } else {
-            driveFunction(.375, -.375);// sets initial motor powers
-            while (currentAngle > angle -30) {
-                currentAngle = robot.getHeading();
+            driveFunction(.25, -.25);// sets initial motor powers
+            while (currentAngle <  angle -30) {
+                currentAngle = -robot.getHeading();
                 retrieveTelemetry();
                 //do I have to say it again?
             } //waits until the robot only has to turn 30 more degrees
-            driveFunction(.25, -.25); //robot slows to be more accurate
-            while (currentAngle > angle -5) {
-                currentAngle = robot.getHeading();
+            driveFunction(.15, -.15); //robot slows to be more accurate
+            while (currentAngle <  angle -15) {
+                currentAngle = -robot.getHeading();
                 retrieveTelemetry();
                 //EMPTY ON PURPOSE EVEN WORSE LOSER
             } //waits for the robot to turn to the specified angle
@@ -114,27 +106,27 @@ public class autoBlue extends LinearOpMode {
         robot.frontRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         robot.backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        double currentPos = robot.backRight.getCurrentPosition();
+        double currentPos = -robot.backRight.getCurrentPosition();
         if (position > 0) {
             driveFunction(.35, .35);//CHANGE BACK TO .35
             while (currentPos < position - 100) {
-                currentPos = robot.backLeft.getCurrentPosition();
+                currentPos = -robot.frontRight.getCurrentPosition();
                 retrieveTelemetry();
             }
             driveFunction(.25, .25);//CHANGE BACK TO .25
             while (currentPos < position - 50) {
-                currentPos = robot.backLeft.getCurrentPosition();
+                currentPos = -robot.frontRight.getCurrentPosition();
                 retrieveTelemetry();
             }
         } else {
             driveFunction(-.35, -.35); //CHANGE BACK TO .4
             while (currentPos > position + 100) {
-                currentPos = robot.backLeft.getCurrentPosition();
+                currentPos = -robot.backLeft.getCurrentPosition();
                 retrieveTelemetry();
             }
             driveFunction(-.25, -.25);//CHANGE BACK TO .3
             while (currentPos > position + 50) {
-                currentPos = robot.backLeft.getCurrentPosition();
+                currentPos = -robot.backLeft.getCurrentPosition();
                 retrieveTelemetry();
             }
         }
@@ -145,8 +137,9 @@ public class autoBlue extends LinearOpMode {
         double CPR =28; //Counts per revolution
         double driveGearReduction = 1;
         double CPW = CPR * driveGearReduction; // counts per wheel
-        double targetRPM = 2000;
+        double targetRPM = 2500;
         double TPS = (targetRPM/ 60) * CPW;
+        retrieveTelemetry();
 //         double tx = result.getTx();
 //         double ty = result.getTy();
 //         double ta = result.getTa();
@@ -180,15 +173,23 @@ public class autoBlue extends LinearOpMode {
 //         }
         driveFunction(0,0);
         robot.flywheelMotor.setVelocity(TPS);
-        sleep(3000); //flywheel get to speed
+        sleep(7000); //flywheel get to speed
+        robot.intakeMotor.setPower(-.25);
         robot.flywheelServo.setPower(.5);
         sleep(3000); //wait for shooting to happen loser
+        robot.intakeMotor.setPower(0);
+        sleep(2000);
         robot.flywheelServo.setPower(0);
         amountOfArtifacts = amountOfArtifacts - 1;
         while (amountOfArtifacts != 0) {
-            sleep(1000);
+            sleep(500);
+            robot.intakeMotor.setPower(.25);
+            sleep(500);
             robot.flywheelServo.setPower(.5);
-            sleep(3000);
+            sleep(2500);
+            robot.intakeMotor.setPower(-.25);
+            sleep(2000);
+            robot.intakeMotor.setPower(0);
             robot.flywheelServo.setPower(0);
             amountOfArtifacts = amountOfArtifacts - 1;
         }

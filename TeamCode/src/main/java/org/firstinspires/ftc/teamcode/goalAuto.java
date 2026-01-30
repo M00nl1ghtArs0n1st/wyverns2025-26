@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 
 @Autonomous
-public class autoRed extends LinearOpMode {
+public class goalAuto extends LinearOpMode {
     RobotClass robot;
 
     @Override
@@ -19,7 +19,6 @@ public class autoRed extends LinearOpMode {
         moveWithEncoders(-780);
         sleep(2000);
         shootArtifacts(2);
-
 
     }
 
