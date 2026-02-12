@@ -39,7 +39,7 @@ public class SixWheelDrive extends LinearOpMode{
         double CPW = CPR * driveGearReduction; // counts per wheel
         robot.imu.resetYaw();
 
-        // Put stuff here you want to do after "init", before "play"
+        // Put stuff here you want to do after "init", before "play" h
 
 
 

@@ -136,7 +136,7 @@ public class goalAuto extends LinearOpMode {
         double CPR =28; //Counts per revolution
         double driveGearReduction = 1;
         double CPW = CPR * driveGearReduction; // counts per wheel
-        double targetRPM = 2500;
+        double targetRPM = 2600;
         double TPS = (targetRPM/ 60) * CPW;
         retrieveTelemetry();
 //         double tx = result.getTx();
